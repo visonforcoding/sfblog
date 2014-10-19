@@ -1,0 +1,50 @@
+{% extends "CwpAdminBundle:Layout:layout.html.twig" %}
+{% block nav_bar %}
+    <style>
+        .navbar-default .navbar-brand, .navbar-default .navbar-brand:hover { 
+            color: #fff;
+        }
+    </style>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="" href="index.html"><span class="navbar-brand"><span class="fa fa-paper-plane"></span>sfblog</span></a></div>
+
+        <div class="navbar-collapse collapse" style="height: 1px;">
+
+        </div>
+    </div>
+{% endblock %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="dialog">
+        <div class="panel panel-default">
+            <p class="panel-heading no-collapse">后台登录</p>
+            <div class="panel-body">
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+                    <div class="form-group">
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                        <input type="text" id="username" class="form-control span12" name="_username" value="{{ last_username }}" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input type="password" id="password" class="form-control span12 form-control" name="_password" required="required" />
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">{{ 'security.login.submit'|trans }}</button>
+                    <label for="remember_me" class="remember-me"><input type="checkbox" name="remember_me"> {{ 'security.login.remember_me'|trans }}</label>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+        <p class="pull-right" style=""><a href="http://www.portnine.com" target="blank" style="font-size: .75em; margin-top: .25em;">联系管理员</a></p>
+        <p><a href="reset-password.html">忘记密码?</a></p>
+    </div>
+
+{% endblock fos_user_content %}

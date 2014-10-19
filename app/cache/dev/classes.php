@@ -2403,6 +2403,36 @@ return array($controller, $method);
 }
 namespace Symfony\Component\Security\Http
 {
+use Symfony\Component\HttpFoundation\Request;
+interface AccessMapInterface
+{
+public function getPatterns(Request $request);
+}
+}
+namespace Symfony\Component\Security\Http
+{
+use Symfony\Component\HttpFoundation\RequestMatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+class AccessMap implements AccessMapInterface
+{
+private $map = array();
+public function add(RequestMatcherInterface $requestMatcher, array $attributes = array(), $channel = null)
+{
+$this->map[] = array($requestMatcher, $attributes, $channel);
+}
+public function getPatterns(Request $request)
+{
+foreach ($this->map as $elements) {
+if (null === $elements[0] || $elements[0]->matches($request)) {
+return array($elements[1], $elements[2]);
+}
+}
+return array(null, null);
+}
+}
+}
+namespace Symfony\Component\Security\Http
+{
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
@@ -2869,7 +2899,7 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.16.0';
+const VERSION ='1.16.2';
 protected $charset;
 protected $loader;
 protected $debug;
@@ -3648,7 +3678,7 @@ new Twig_SimpleFilter('striptags','strip_tags'),
 new Twig_SimpleFilter('trim','trim'),
 new Twig_SimpleFilter('nl2br','nl2br', array('pre_escape'=>'html','is_safe'=> array('html'))),
 new Twig_SimpleFilter('join','twig_join_filter'),
-new Twig_SimpleFilter('split','twig_split_filter'),
+new Twig_SimpleFilter('split','twig_split_filter', array('needs_environment'=> true)),
 new Twig_SimpleFilter('sort','twig_sort_filter'),
 new Twig_SimpleFilter('merge','twig_array_merge'),
 new Twig_SimpleFilter('batch','twig_array_batch'),
@@ -3715,35 +3745,40 @@ return new Twig_Node_Expression_Unary_Not($this->parseTestExpression($parser, $n
 public function parseTestExpression(Twig_Parser $parser, Twig_NodeInterface $node)
 {
 $stream = $parser->getStream();
-$name = $stream->expect(Twig_Token::NAME_TYPE)->getValue();
-$class = $this->getTestNodeClass($parser, $name, $node->getLine());
+$name = $this->getTestName($parser, $node->getLine());
+$class = $this->getTestNodeClass($parser, $name);
 $arguments = null;
 if ($stream->test(Twig_Token::PUNCTUATION_TYPE,'(')) {
 $arguments = $parser->getExpressionParser()->parseArguments(true);
 }
 return new $class($node, $name, $arguments, $parser->getCurrentToken()->getLine());
 }
-protected function getTestNodeClass(Twig_Parser $parser, $name, $line)
+protected function getTestName(Twig_Parser $parser, $line)
 {
+$stream = $parser->getStream();
+$name = $stream->expect(Twig_Token::NAME_TYPE)->getValue();
 $env = $parser->getEnvironment();
 $testMap = $env->getTests();
-$testName = null;
 if (isset($testMap[$name])) {
-$testName = $name;
-} elseif ($parser->getStream()->test(Twig_Token::NAME_TYPE)) {
+return $name;
+}
+if ($stream->test(Twig_Token::NAME_TYPE)) {
 $name = $name.' '.$parser->getCurrentToken()->getValue();
 if (isset($testMap[$name])) {
 $parser->getStream()->next();
-$testName = $name;
+return $name;
 }
 }
-if (null === $testName) {
 $message = sprintf('The test "%s" does not exist', $name);
-if ($alternatives = $env->computeAlternatives($name, array_keys($env->getTests()))) {
+if ($alternatives = $env->computeAlternatives($name, array_keys($testMap))) {
 $message = sprintf('%s. Did you mean "%s"', $message, implode('", "', $alternatives));
 }
 throw new Twig_Error_Syntax($message, $line, $parser->getFilename());
 }
+protected function getTestNodeClass(Twig_Parser $parser, $name)
+{
+$env = $parser->getEnvironment();
+$testMap = $env->getTests();
 if ($testMap[$name] instanceof Twig_SimpleTest) {
 return $testMap[$name]->getNodeClass();
 }
@@ -3811,25 +3846,25 @@ return twig_date_converter($env, $date, $timezone)->format($format);
 function twig_date_modify_filter(Twig_Environment $env, $date, $modifier)
 {
 $date = twig_date_converter($env, $date, false);
-$date->modify($modifier);
-return $date;
+$resultDate = $date->modify($modifier);
+return null === $resultDate ? $date : $resultDate;
 }
 function twig_date_converter(Twig_Environment $env, $date = null, $timezone = null)
 {
-if (!$timezone) {
-$defaultTimezone = $env->getExtension('core')->getTimezone();
+if (false !== $timezone) {
+if (null === $timezone) {
+$timezone = $env->getExtension('core')->getTimezone();
 } elseif (!$timezone instanceof DateTimeZone) {
-$defaultTimezone = new DateTimeZone($timezone);
-} else {
-$defaultTimezone = $timezone;
+$timezone = new DateTimeZone($timezone);
+}
 }
 if ($date instanceof DateTimeImmutable) {
-return false !== $timezone ? $date->setTimezone($defaultTimezone) : $date;
+return false !== $timezone ? $date->setTimezone($timezone) : $date;
 }
 if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
 $date = clone $date;
 if (false !== $timezone) {
-$date->setTimezone($defaultTimezone);
+$date->setTimezone($timezone);
 }
 return $date;
 }
@@ -3837,9 +3872,9 @@ $asString = (string) $date;
 if (ctype_digit($asString) || (!empty($asString) &&'-'=== $asString[0] && ctype_digit(substr($asString, 1)))) {
 $date ='@'.$date;
 }
-$date = new DateTime($date, $defaultTimezone);
+$date = new DateTime($date, $env->getExtension('core')->getTimezone());
 if (false !== $timezone) {
-$date->setTimezone($defaultTimezone);
+$date->setTimezone($timezone);
 }
 return $date;
 }
@@ -3907,23 +3942,29 @@ $value = (string) $value;
 function twig_array_merge($arr1, $arr2)
 {
 if (!is_array($arr1) || !is_array($arr2)) {
-throw new Twig_Error_Runtime('The merge filter only works with arrays or hashes.');
+throw new Twig_Error_Runtime(sprintf('The merge filter only works with arrays or hashes; %s and %s given.', gettype($arr1), gettype($arr2)));
 }
 return array_merge($arr1, $arr2);
 }
 function twig_slice(Twig_Environment $env, $item, $start, $length = null, $preserveKeys = false)
 {
 if ($item instanceof Traversable) {
-$item = iterator_to_array($item, false);
+if ($item instanceof IteratorAggregate) {
+$item = $item->getIterator();
+}
+if ($start >= 0 && $length >= 0) {
+return iterator_to_array(new LimitIterator($item, $start, $length === null ? -1 : $length), $preserveKeys);
+}
+$item = iterator_to_array($item, $preserveKeys);
 }
 if (is_array($item)) {
 return array_slice($item, $start, $length, $preserveKeys);
 }
 $item = (string) $item;
 if (function_exists('mb_get_info') && null !== $charset = $env->getCharset()) {
-return mb_substr($item, $start, null === $length ? mb_strlen($item, $charset) - $start : $length, $charset);
+return (string) mb_substr($item, $start, null === $length ? mb_strlen($item, $charset) - $start : $length, $charset);
 }
-return null === $length ? substr($item, $start) : substr($item, $start, $length);
+return (string) (null === $length ? substr($item, $start) : substr($item, $start, $length));
 }
 function twig_first(Twig_Environment $env, $item)
 {
@@ -3942,12 +3983,26 @@ $value = iterator_to_array($value, false);
 }
 return implode($glue, (array) $value);
 }
-function twig_split_filter($value, $delimiter, $limit = null)
+function twig_split_filter(Twig_Environment $env, $value, $delimiter, $limit = null)
 {
-if (empty($delimiter)) {
+if (!empty($delimiter)) {
+return null === $limit ? explode($delimiter, $value) : explode($delimiter, $value, $limit);
+}
+if (!function_exists('mb_get_info') || null === $charset = $env->getCharset()) {
 return str_split($value, null === $limit ? 1 : $limit);
 }
-return null === $limit ? explode($delimiter, $value) : explode($delimiter, $value, $limit);
+if ($limit <= 1) {
+return preg_split('/(?<!^)(?!$)/u', $value);
+}
+$length = mb_strlen($value, $charset);
+if ($length < $limit) {
+return array($value);
+}
+$r = array();
+for ($i = 0; $i < $length; $i += $limit) {
+$r[] = mb_substr($value, $i, $limit, $charset);
+}
+return $r;
 }
 function _twig_default_filter($value, $default ='')
 {
@@ -4026,7 +4081,7 @@ switch ($strategy) {
 case'html':
 static $htmlspecialcharsCharsets;
 if (null === $htmlspecialcharsCharsets) {
-if ('hiphop'=== substr(PHP_VERSION, -6)) {
+if (defined('HHVM_VERSION')) {
 $htmlspecialcharsCharsets = array('utf-8'=> true,'UTF-8'=> true);
 } else {
 $htmlspecialcharsCharsets = array('ISO-8859-1'=> true,'ISO8859-1'=> true,'ISO-8859-15'=> true,'ISO8859-15'=> true,'utf-8'=> true,'UTF-8'=> true,'CP866'=> true,'IBM866'=> true,'866'=> true,'CP1251'=> true,'WINDOWS-1251'=> true,'WIN-1251'=> true,'1251'=> true,'CP1252'=> true,'WINDOWS-1252'=> true,'1252'=> true,'KOI8-R'=> true,'KOI8-RU'=> true,'KOI8R'=> true,'BIG5'=> true,'950'=> true,'GB2312'=> true,'936'=> true,'BIG5-HKSCS'=> true,'SHIFT_JIS'=> true,'SJIS'=> true,'932'=> true,'EUC-JP'=> true,'EUCJP'=> true,'ISO8859-5'=> true,'ISO-8859-5'=> true,'MACROMAN'=> true,
@@ -4574,7 +4629,11 @@ $message = sprintf('Key "%s" in object with ArrayAccess of class "%s" does not e
 } elseif (is_object($object)) {
 $message = sprintf('Impossible to access a key "%s" on an object of class "%s" that does not implement ArrayAccess interface', $item, get_class($object));
 } elseif (is_array($object)) {
+if (empty($object)) {
+$message = sprintf('Key "%s" does not exist as the array is empty', $arrayItem);
+} else {
 $message = sprintf('Key "%s" for array with keys "%s" does not exist', $arrayItem, implode(', ', array_keys($object)));
+}
 } elseif (Twig_Template::ARRAY_CALL === $type) {
 $message = sprintf('Impossible to access a key ("%s") on a %s variable ("%s")', $item, gettype($object), $object);
 } else {
@@ -4670,6 +4729,9 @@ protected $dateFormat;
 public function __construct($dateFormat = null)
 {
 $this->dateFormat = $dateFormat ?: static::SIMPLE_DATE;
+if (!function_exists('json_encode')) {
+throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
+}
 }
 public function format(array $record)
 {
@@ -4753,10 +4815,12 @@ class LineFormatter extends NormalizerFormatter
 const SIMPLE_FORMAT ="[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
 protected $format;
 protected $allowInlineLineBreaks;
-public function __construct($format = null, $dateFormat = null, $allowInlineLineBreaks = false)
+protected $ignoreEmptyContextAndExtra;
+public function __construct($format = null, $dateFormat = null, $allowInlineLineBreaks = false, $ignoreEmptyContextAndExtra = false)
 {
 $this->format = $format ?: static::SIMPLE_FORMAT;
 $this->allowInlineLineBreaks = $allowInlineLineBreaks;
+$this->ignoreEmptyContextAndExtra = $ignoreEmptyContextAndExtra;
 parent::__construct($dateFormat);
 }
 public function format(array $record)
@@ -4767,6 +4831,16 @@ foreach ($vars['extra'] as $var => $val) {
 if (false !== strpos($output,'%extra.'.$var.'%')) {
 $output = str_replace('%extra.'.$var.'%', $this->replaceNewlines($this->convertToString($val)), $output);
 unset($vars['extra'][$var]);
+}
+}
+if ($this->ignoreEmptyContextAndExtra) {
+if (empty($vars['context'])) {
+unset($vars['context']);
+$output = str_replace('%context%','', $output);
+}
+if (empty($vars['extra'])) {
+unset($vars['extra']);
+$output = str_replace('%extra%','', $output);
 }
 }
 foreach ($vars as $var => $val) {
@@ -4812,7 +4886,7 @@ protected function replaceNewlines($str)
 if ($this->allowInlineLineBreaks) {
 return $str;
 }
-return preg_replace('{[\r\n]+}',' ', $str);
+return strtr($str, array("\r\n"=>' ',"\r"=>' ',"\n"=>' '));
 }
 }
 }
@@ -4843,7 +4917,7 @@ protected $formatter;
 protected $processors = array();
 public function __construct($level = Logger::DEBUG, $bubble = true)
 {
-$this->level = $level;
+$this->setLevel($level);
 $this->bubble = $bubble;
 }
 public function isHandling(array $record)
@@ -4888,7 +4962,7 @@ return $this->formatter;
 }
 public function setLevel($level)
 {
-$this->level = $level;
+$this->level = Logger::toMonologLevel($level);
 return $this;
 }
 public function getLevel()
@@ -4952,15 +5026,19 @@ protected $stream;
 protected $url;
 private $errorMessage;
 protected $filePermission;
-public function __construct($stream, $level = Logger::DEBUG, $bubble = true, $filePermission = null)
+protected $useLocking;
+public function __construct($stream, $level = Logger::DEBUG, $bubble = true, $filePermission = null, $useLocking = false)
 {
 parent::__construct($level, $bubble);
 if (is_resource($stream)) {
 $this->stream = $stream;
-} else {
+} elseif (is_string($stream)) {
 $this->url = $stream;
+} else {
+throw new \InvalidArgumentException('A stream must either be a resource or a string.');
 }
 $this->filePermission = $filePermission;
+$this->useLocking = $useLocking;
 }
 public function close()
 {
@@ -4987,7 +5065,13 @@ $this->stream = null;
 throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: '.$this->errorMessage, $this->url));
 }
 }
+if ($this->useLocking) {
+flock($this->stream, LOCK_EX);
+}
 fwrite($this->stream, (string) $record['formatted']);
+if ($this->useLocking) {
+flock($this->stream, LOCK_UN);
+}
 }
 private function customErrorHandler($code, $msg)
 {
@@ -5009,7 +5093,7 @@ protected $bufferSize;
 protected $buffer = array();
 protected $stopBuffering;
 protected $passthruLevel;
-public function __construct($handler, $activationStrategy = null, $bufferSize = 0, $bubble = true, $stopBuffering = true, $passthruLevel = NULL)
+public function __construct($handler, $activationStrategy = null, $bufferSize = 0, $bubble = true, $stopBuffering = true, $passthruLevel = null)
 {
 if (null === $activationStrategy) {
 $activationStrategy = new ErrorLevelActivationStrategy(Logger::WARNING);
@@ -5063,7 +5147,7 @@ return false === $this->bubble;
 }
 public function close()
 {
-if (NULL !== $this->passthruLevel) {
+if (null !== $this->passthruLevel) {
 $level = $this->passthruLevel;
 $this->buffer = array_filter($this->buffer, function ($record) use ($level) {
 return $record['level'] >= $level;
@@ -5077,6 +5161,11 @@ $this->buffer = array();
 public function reset()
 {
 $this->buffering = true;
+}
+public function clear()
+{
+$this->buffer = array();
+$this->reset();
 }
 }
 }
@@ -5101,11 +5190,13 @@ return array_flip($this->acceptedLevels);
 public function setAcceptedLevels($minLevelOrList = Logger::DEBUG, $maxLevel = Logger::EMERGENCY)
 {
 if (is_array($minLevelOrList)) {
-$acceptedLevels = $minLevelOrList;
+$acceptedLevels = array_map('Monolog\Logger::toMonologLevel', $minLevelOrList);
 } else {
-$acceptedLevels = array_filter(Logger::getLevels(), function ($level) use ($minLevelOrList, $maxLevel) {
+$minLevelOrList = Logger::toMonologLevel($minLevelOrList);
+$maxLevel = Logger::toMonologLevel($maxLevel);
+$acceptedLevels = array_values(array_filter(Logger::getLevels(), function ($level) use ($minLevelOrList, $maxLevel) {
 return $level >= $minLevelOrList && $level <= $maxLevel;
-});
+}));
 }
 $this->acceptedLevels = array_flip($acceptedLevels);
 }
@@ -5406,6 +5497,13 @@ throw new InvalidArgumentException('Level "'.$level.'" is not defined, use one o
 }
 return static::$levels[$level];
 }
+public static function toMonologLevel($level)
+{
+if (is_string($level) && defined(__CLASS__.'::'.strtoupper($level))) {
+return constant(__CLASS__.'::'.strtoupper($level));
+}
+return $level;
+}
 public function isHandling($level)
 {
 $record = array('level'=> $level,
@@ -5578,12 +5676,13 @@ public function isHandlerActivated(array $record);
 }
 namespace Monolog\Handler\FingersCrossed
 {
+use Monolog\Logger;
 class ErrorLevelActivationStrategy implements ActivationStrategyInterface
 {
 private $actionLevel;
 public function __construct($actionLevel)
 {
-$this->actionLevel = $actionLevel;
+$this->actionLevel = Logger::toMonologLevel($actionLevel);
 }
 public function isHandlerActivated(array $record)
 {
@@ -5631,6 +5730,7 @@ use Assetic\Asset\GlobAsset;
 use Assetic\Asset\HttpAsset;
 use Assetic\AssetManager;
 use Assetic\Factory\Worker\WorkerInterface;
+use Assetic\Filter\DependencyExtractorInterface;
 use Assetic\FilterManager;
 class AssetFactory
 {
@@ -5750,6 +5850,33 @@ unset($options[$key]);
 ksort($options);
 return substr(sha1(serialize($inputs).serialize($filters).serialize($options)), 0, 7);
 }
+public function getLastModified(AssetInterface $asset)
+{
+$mtime = 0;
+foreach ($asset instanceof AssetCollectionInterface ? $asset : array($asset) as $leaf) {
+$mtime = max($mtime, $leaf->getLastModified());
+if (!$filters = $leaf->getFilters()) {
+continue;
+}
+$prevFilters = array();
+foreach ($filters as $filter) {
+$prevFilters[] = $filter;
+if (!$filter instanceof DependencyExtractorInterface) {
+continue;
+}
+$clone = clone $leaf;
+$clone->clearFilters();
+foreach (array_slice($prevFilters, 0, -1) as $prevFilter) {
+$clone->ensureFilter($prevFilter);
+}
+$clone->load();
+foreach ($filter->getChildren($this, $clone->getContent(), $clone->getSourceDirectory()) as $child) {
+$mtime = max($mtime, $this->getLastModified($child));
+}
+}
+}
+return $mtime;
+}
 protected function parseInput($input, array $options = array())
 {
 if ('@'== $input[0]) {
@@ -5808,14 +5935,14 @@ private function applyWorkers(AssetCollectionInterface $asset)
 {
 foreach ($asset as $leaf) {
 foreach ($this->workers as $worker) {
-$retval = $worker->process($leaf);
+$retval = $worker->process($leaf, $this);
 if ($retval instanceof AssetInterface && $leaf !== $retval) {
 $asset->replaceLeaf($leaf, $retval);
 }
 }
 }
 foreach ($this->workers as $worker) {
-$retval = $worker->process($asset);
+$retval = $worker->process($asset, $this);
 if ($retval instanceof AssetInterface) {
 $asset = $retval;
 }

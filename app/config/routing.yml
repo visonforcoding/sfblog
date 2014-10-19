@@ -1,0 +1,13 @@
+cwp_admin:
+    resource: "@CwpAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+cwp_blog:
+    resource: "@CwpBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cwp_user:
+    resource: "@CwpUserBundle/Resources/config/routing.yml"
+    prefix:   /
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

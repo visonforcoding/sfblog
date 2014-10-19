@@ -1,0 +1,11 @@
+cwp_admin_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CwpAdminBundle:Default:index }
+
+cwp_admin_index:
+    path:     /index
+    defaults: { _controller: CwpAdminBundle:Index:index }
+
+login:
+    path:     /login
+    defaults: { _controller: CwpAdminBundle:Index:login }

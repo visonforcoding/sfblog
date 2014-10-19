@@ -1,0 +1,3 @@
+cwp_user_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CwpUserBundle:Default:index }

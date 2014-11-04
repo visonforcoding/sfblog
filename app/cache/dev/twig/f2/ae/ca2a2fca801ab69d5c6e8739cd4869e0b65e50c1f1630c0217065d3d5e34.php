@@ -116,17 +116,39 @@ class __TwigTemplate_f2aeca2a2fca801ab69d5c6e8739cd4869e0b65e50c1f1630c0217065d3
     <div class=\"panel panel-default\">
         <p class=\"panel-heading no-collapse\">后台登录</p>
         <div class=\"panel-body\">
-            <form action=\"{:U('Admin/index/doLogin')}\" method=\"post\">
+         <form action=\"";
+        // line 86
+        echo $this->env->getExtension('routing')->getPath("fos_user_security_check");
+        echo "\" method=\"post\">
+               <input type=\"hidden\" name=\"_csrf_token\" value=\"";
+        // line 87
+        echo twig_escape_filter($this->env, (isset($context["csrf_token"]) ? $context["csrf_token"] : $this->getContext($context, "csrf_token")), "html", null, true);
+        echo "\" />
                 <div class=\"form-group\">
-                    <label>用户名</label>
-                    <input type=\"text\" name=\"username\" class=\"form-control span12\">
+                    <label for=\"username\">";
+        // line 89
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("security.login.username"), "html", null, true);
+        echo "</label>
+                    <input type=\"text\" id=\"username\" class=\"form-control span12\" name=\"_username\" value=\"";
+        // line 90
+        echo twig_escape_filter($this->env, (isset($context["last_username"]) ? $context["last_username"] : $this->getContext($context, "last_username")), "html", null, true);
+        echo "\" required=\"required\" />
                 </div>
                 <div class=\"form-group\">
-                <label>密码</label>
-                    <input type=\"password\" name=\"password\" class=\"form-control span12 form-control\">
+               <label for=\"password\">";
+        // line 93
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("security.login.password"), "html", null, true);
+        echo "</label>
+                 <input type=\"password\" id=\"password\" class=\"form-control span12 form-control\" name=\"_password\" required=\"required\" />
                 </div>
-                <button type=\"submit\" class=\"btn btn-primary pull-right\">登录</button>
-                <label class=\"remember-me\"><input type=\"checkbox\" name=\"remember\"> 记住我</label>
+                <button type=\"submit\" class=\"btn btn-primary pull-right\">";
+        // line 96
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("security.login.submit"), "html", null, true);
+        echo "</button>
+                <label class=\"_remember_me\"><input type=\"checkbox\" name=\"_remember_me\" value=\"on\"> ";
+        // line 97
+        echo twig_escape_filter($this->env, $this->env->getExtension('translator')->trans("security.login.remember_me"), "html", null, true);
+        echo "</label>
                 <div class=\"clearfix\"></div>
             </form>
         </div>
@@ -138,7 +160,7 @@ class __TwigTemplate_f2aeca2a2fca801ab69d5c6e8739cd4869e0b65e50c1f1630c0217065d3
 
 
     <script src=\"";
-        // line 107
+        // line 108
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/bootstrap/js/bootstrap.js"), "html", null, true);
         echo "\"></script>
     <script type=\"text/javascript\">
@@ -165,6 +187,6 @@ class __TwigTemplate_f2aeca2a2fca801ab69d5c6e8739cd4869e0b65e50c1f1630c0217065d3
 
     public function getDebugInfo()
     {
-        return array (  142 => 107,  45 => 13,  41 => 12,  37 => 11,  33 => 10,  29 => 9,  19 => 1,);
+        return array (  164 => 108,  150 => 97,  146 => 96,  140 => 93,  134 => 90,  130 => 89,  125 => 87,  121 => 86,  45 => 13,  41 => 12,  37 => 11,  33 => 10,  29 => 9,  19 => 1,);
     }
 }

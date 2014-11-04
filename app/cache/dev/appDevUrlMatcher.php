@@ -122,6 +122,16 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // cwp_util_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_util_homepage')), array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\DefaultController::indexAction',));
+        }
+
+        // cwp_util_addCat
+        if ($pathinfo === '/util/index') {
+            return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\CategoryController::addCatAction',  '_route' => 'cwp_util_addCat',);
+        }
+
         if (0 === strpos($pathinfo, '/admin')) {
             // cwp_admin_homepage
             if (0 === strpos($pathinfo, '/admin/hello') && preg_match('#^/admin/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
@@ -138,11 +148,44 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\IndexController::loginAction',  '_route' => 'login',);
             }
 
-        }
+            // cwp_admin_userlist
+            if ($pathinfo === '/admin/userlist') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userlistAction',  '_route' => 'cwp_admin_userlist',);
+            }
 
-        // cwp_blog_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_blog_homepage')), array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\DefaultController::indexAction',));
+            // cwp_admin_adduser
+            if ($pathinfo === '/admin/adduser') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::addUserAction',  '_route' => 'cwp_admin_adduser',);
+            }
+
+            // cwp_admin_doadduser
+            if ($pathinfo === '/admin/doadduser') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::doAddUserAction',  '_route' => 'cwp_admin_doadduser',);
+            }
+
+            // cwp_admin_addcat
+            if ($pathinfo === '/admin/addcat') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addCatAction',  '_route' => 'cwp_admin_addcat',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/blog')) {
+                // cwp_admin_blogcatlist
+                if ($pathinfo === '/admin/blogcatlist') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::catListAction',  '_route' => 'cwp_admin_blogcatlist',);
+                }
+
+                // cwp_admin_bloglist
+                if ($pathinfo === '/admin/bloglist') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::blogListAction',  '_route' => 'cwp_admin_bloglist',);
+                }
+
+            }
+
+            // cwp_admin_addblog
+            if ($pathinfo === '/admin/addblog') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addBlogAction',  '_route' => 'cwp_admin_addblog',);
+            }
+
         }
 
         // index
@@ -390,6 +433,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             // _demo_contact
             if ($pathinfo === '/demo/contact') {
                 return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',  '_route' => '_demo_contact',);
+            }
+
+            // ACME_DEMO_INDEX
+            if ($pathinfo === '/demo/index') {
+                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::indexAction',  '_route' => 'ACME_DEMO_INDEX',);
             }
 
         }

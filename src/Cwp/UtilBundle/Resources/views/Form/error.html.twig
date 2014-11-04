@@ -1,0 +1,10 @@
+{# empty Twig template #}
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        {% for error in errors|slice(0, 1) %}
+            <span class="error-info">错误：{{ error.message }}</span>
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}

@@ -1,0 +1,27 @@
+{% extends "CwpUtilBundle:Layout:base.html.twig" %}
+{% block title %}操作提示页{%endblock%}
+{% block main %}
+    <div class="message-box">
+        <div class="message">
+            <h1>{{ message|raw }}</h1>
+        </div>
+        <div class="pic"><img src="{{asset('bundles/cwputil/images/common/cry.png')}}"/></div>
+        <div class="clear"></div>
+        <div class="redirect">
+            页面<span id="time">{{time}}</span>后<a id="href" href="{{redirectUrl}}">跳转</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            var wait = document.getElementById('time'), href = document.getElementById('href').href;
+            var interval = setInterval(function () {
+                var time = --wait.innerHTML;
+                if (time <= 0) {
+                    location.href = href;
+                    clearInterval(interval);
+                }
+                ;
+            }, 1000);
+        })();
+    </script>
+{% endblock %}

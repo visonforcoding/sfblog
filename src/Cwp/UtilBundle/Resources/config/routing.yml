@@ -1,0 +1,6 @@
+cwp_util_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: CwpUtilBundle:Default:index }
+cwp_util_addCat:
+    path:     /util/index
+    defaults: { _controller: CwpUtilBundle:Category:addCat }

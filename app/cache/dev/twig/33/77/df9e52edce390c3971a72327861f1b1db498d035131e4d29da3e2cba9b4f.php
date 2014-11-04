@@ -19,7 +19,7 @@ class __TwigTemplate_3377df9e52edce390c3971a72327861f1b1db498d035131e4d29da3e2cb
         echo "<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+        <meta charset=\"UTF-8\" />
         <title>An Error Occurred: ";
         // line 5
         echo twig_escape_filter($this->env, (isset($context["status_text"]) ? $context["status_text"] : $this->getContext($context, "status_text")), "html", null, true);
@@ -35,9 +35,8 @@ class __TwigTemplate_3377df9e52edce390c3971a72327861f1b1db498d035131e4d29da3e2cb
         echo "\".</h2>
 
         <div>
-            Something is broken. Please e-mail us at [email] and let us know
-            what you were doing when this error occurred. We will fix it as soon
-            as possible. Sorry for any inconvenience caused.
+            Something is broken. Please let us know what you were doing when this error occurred.
+            We will fix it as soon as possible. Sorry for any inconvenience caused.
         </div>
     </body>
 </html>

@@ -7,6 +7,7 @@
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },
     "require": {
+        "raulfraile/ladybug-bundle": "~1.0",
         "friendsofsymfony/user-bundle" :"~2.0@dev",
         "php": ">=5.3.3",
         "symfony/symfony": "2.5.*",

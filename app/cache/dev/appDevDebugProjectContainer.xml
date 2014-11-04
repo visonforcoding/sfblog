@@ -16,10 +16,12 @@
       <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
+      <parameter key="RaulFraileLadybugBundle">RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle</parameter>
       <parameter key="CwpUserBundle">Cwp\UserBundle\CwpUserBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="CwpBlogBundle">Cwp\BlogBundle\CwpBlogBundle</parameter>
       <parameter key="CwpAdminBundle">Cwp\AdminBundle\CwpAdminBundle</parameter>
+      <parameter key="CwpUtilBundle">Cwp\UtilBundle\CwpUtilBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -39,7 +41,7 @@
     <parameter key="mailer_password">null</parameter>
     <parameter key="locale">zh_CN</parameter>
     <parameter key="secret">ThisTokenIsNotSoSecretChangeIt</parameter>
-    <parameter key="debug_toolbar">true</parameter>
+    <parameter key="debug_toolbar">false</parameter>
     <parameter key="debug_redirects">false</parameter>
     <parameter key="use_assetic_controller">true</parameter>
     <parameter key="controller_resolver.class">Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver</parameter>
@@ -326,6 +328,7 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception:showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>CwpUtilBundle:Form:error.html.twig</parameter>
     </parameter>
     <parameter key="debug.templating.engine.twig.class">Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine</parameter>
     <parameter key="twig.options" type="collection">
@@ -519,6 +522,16 @@
     <parameter key="sensio_framework_extra.converter.doctrine.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter</parameter>
     <parameter key="sensio_framework_extra.converter.datetime.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter</parameter>
     <parameter key="sensio_framework_extra.view.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener</parameter>
+    <parameter key="ladybug.options" type="collection">
+      <parameter key="extra_helpers" type="collection">
+        <parameter>RaulFraile\Bundle\LadybugBundle\DataCollector\LadybugDataCollector:log</parameter>
+      </parameter>
+      <parameter key="theme">modern</parameter>
+      <parameter key="expanded">false</parameter>
+      <parameter key="silenced">false</parameter>
+      <parameter key="array_max_nesting_level">9</parameter>
+      <parameter key="object_max_nesting_level">3</parameter>
+    </parameter>
     <parameter key="fos_user.backend_type_orm">true</parameter>
     <parameter key="fos_user.security.interactive_login_listener.class">FOS\UserBundle\EventListener\LastLoginListener</parameter>
     <parameter key="fos_user.security.login_manager.class">FOS\UserBundle\Security\LoginManager</parameter>
@@ -565,9 +578,6 @@
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
     <parameter key="twig.extension.webprofiler.class">Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension</parameter>
     <parameter key="web_profiler.debug_toolbar.position">bottom</parameter>
-    <parameter key="web_profiler.debug_toolbar.class">Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener</parameter>
-    <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
-    <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
     <parameter key="sensio_distribution.webconfigurator.class">Sensio\Bundle\DistributionBundle\Configurator\Configurator</parameter>
     <parameter key="sensio_distribution.webconfigurator.doctrine_step.class">Sensio\Bundle\DistributionBundle\Configurator\Step\DoctrineStep</parameter>
     <parameter key="sensio_distribution.webconfigurator.secret_step.class">Sensio\Bundle\DistributionBundle\Configurator\Step\SecretStep</parameter>
@@ -621,6 +631,10 @@
       <parameter key="data_collector.doctrine" type="collection">
         <parameter>db</parameter>
         <parameter>DoctrineBundle:Collector:db</parameter>
+      </parameter>
+      <parameter key="data_collector.ladybug_data_collector" type="collection">
+        <parameter>ladybug</parameter>
+        <parameter>RaulFraileLadybugBundle:Collector:ladybug</parameter>
       </parameter>
     </parameter>
     <parameter key="console.command.ids" type="collection">
@@ -1956,6 +1970,12 @@
         <argument>fr</argument>
         <argument>messages</argument>
       </call>
+      <call method="addResource">
+        <argument>xlf</argument>
+        <argument>E:\web\sfblog\src\Cwp\UtilBundle/Resources/translations\messages.fr.xlf</argument>
+        <argument>fr</argument>
+        <argument>messages</argument>
+      </call>
     </service>
     <service id="translation.loader.php" class="Symfony\Component\Translation\Loader\PhpFileLoader">
       <tag name="translation.loader" alias="php"/>
@@ -2175,6 +2195,14 @@
         <argument>0</argument>
       </call>
       <call method="addListenerService">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument>ladybug.event_listener.ladybug_config_listener</argument>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListenerService">
         <argument>kernel.controller</argument>
         <argument type="collection">
           <argument>acme.demo.listener</argument>
@@ -2281,10 +2309,6 @@
       <call method="addSubscriberService">
         <argument>fos_user.listener.resetting</argument>
         <argument>FOS\UserBundle\EventListener\ResettingListener</argument>
-      </call>
-      <call method="addSubscriberService">
-        <argument>web_profiler.debug_toolbar</argument>
-        <argument>Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener</argument>
       </call>
     </service>
     <service id="debug.controller_resolver" class="Symfony\Component\HttpKernel\Controller\TraceableControllerResolver">
@@ -2661,6 +2685,11 @@
           <argument>E:\web\sfblog\vendor\friendsofsymfony\user-bundle\Resources\config\validation.xml</argument>
         </argument>
       </call>
+      <call method="addYamlMappings">
+        <argument type="collection">
+          <argument>E:\web\sfblog\src\Cwp\UtilBundle\Resources\config\validation.yml</argument>
+        </argument>
+      </call>
       <call method="enableAnnotationMapping">
         <argument type="service" id="annotation_reader"/>
       </call>
@@ -2800,6 +2829,9 @@
           </service>
         </argument>
       </call>
+      <call method="add">
+        <argument type="service" id="data_collector.ladybug_data_collector"/>
+      </call>
     </service>
     <service id="profiler_listener" class="Symfony\Component\HttpKernel\EventListener\ProfilerListener">
       <tag name="kernel.event_subscriber"/>
@@ -2934,7 +2966,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>5443d44c6d0c9</argument>
+            <argument>54585749a6428</argument>
           </service>
         </argument>
       </argument>
@@ -3204,7 +3236,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>5443d44c6d0c9</argument>
+            <argument>54585749a6428</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3406,6 +3438,7 @@
                   <service class="Symfony\Bridge\Twig\Form\TwigRendererEngine" public="false">
                     <argument type="collection">
                       <argument>form_div_layout.html.twig</argument>
+                      <argument>CwpUtilBundle:Form:error.html.twig</argument>
                     </argument>
                   </service>
                 </argument>
@@ -3444,6 +3477,14 @@
         <argument type="service">
           <service class="Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension" public="false">
             <tag name="twig.extension"/>
+          </service>
+        </argument>
+      </call>
+      <call method="addExtension">
+        <argument type="service">
+          <service class="RaulFraile\Bundle\LadybugBundle\Twig\Extension\LadybugExtension" public="false">
+            <tag name="twig.extension"/>
+            <argument type="service" id="ladybug.dumper"/>
           </service>
         </argument>
       </call>
@@ -3665,6 +3706,9 @@
           <call method="setEntityNamespaces">
             <argument type="collection">
               <argument key="CwpUserBundle">Cwp\UserBundle\Entity</argument>
+              <argument key="CwpBlogBundle">Cwp\BlogBundle\Entity</argument>
+              <argument key="CwpUtilBundle">Cwp\UtilBundle\Entity</argument>
+              <argument key="AcmeDemoBundle">Acme\DemoBundle\Entity</argument>
             </argument>
           </call>
           <call method="setMetadataCacheImpl">
@@ -3703,10 +3747,55 @@
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
                         <argument>E:\web\sfblog\src\Cwp\UserBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\BlogBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\UtilBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Acme\DemoBundle\Entity</argument>
                       </argument>
                     </service>
                   </argument>
                   <argument>Cwp\UserBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>E:\web\sfblog\src\Cwp\UserBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\BlogBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\UtilBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Acme\DemoBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Cwp\BlogBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>E:\web\sfblog\src\Cwp\UserBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\BlogBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\UtilBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Acme\DemoBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Cwp\UtilBundle\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>E:\web\sfblog\src\Cwp\UserBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\BlogBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Cwp\UtilBundle\Entity</argument>
+                        <argument>E:\web\sfblog\src\Acme\DemoBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Acme\DemoBundle\Entity</argument>
                 </call>
                 <call method="addDriver">
                   <argument type="service">
@@ -3796,6 +3885,37 @@
       </argument>
       <argument type="service" id="security.authentication.trust_resolver" on-invalid="null"/>
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
+    </service>
+    <service id="ladybug.dumper" class="Ladybug\Dumper">
+      <call method="setOptions">
+        <argument type="collection">
+          <argument key="extra_helpers" type="collection">
+            <argument>RaulFraile\Bundle\LadybugBundle\DataCollector\LadybugDataCollector:log</argument>
+          </argument>
+          <argument key="theme">modern</argument>
+          <argument key="expanded">false</argument>
+          <argument key="silenced">false</argument>
+          <argument key="array_max_nesting_level">9</argument>
+          <argument key="object_max_nesting_level">3</argument>
+        </argument>
+      </call>
+    </service>
+    <service id="data_collector.ladybug_data_collector" class="RaulFraile\Bundle\LadybugBundle\DataCollector\LadybugDataCollector">
+      <tag name="data_collector" template="RaulFraileLadybugBundle:Collector:ladybug" id="ladybug"/>
+      <argument type="service" id="ladybug.dumper"/>
+    </service>
+    <service id="ladybug.event_listener.ladybug_config_listener" class="RaulFraile\Bundle\LadybugBundle\EventListener\LadybugConfigListener">
+      <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+      <argument type="collection">
+        <argument key="extra_helpers" type="collection">
+          <argument>RaulFraile\Bundle\LadybugBundle\DataCollector\LadybugDataCollector:log</argument>
+        </argument>
+        <argument key="theme">modern</argument>
+        <argument key="expanded">false</argument>
+        <argument key="silenced">false</argument>
+        <argument key="array_max_nesting_level">9</argument>
+        <argument key="object_max_nesting_level">3</argument>
+      </argument>
     </service>
     <service id="fos_user.security.interactive_login_listener" class="FOS\UserBundle\EventListener\LastLoginListener">
       <tag name="kernel.event_subscriber"/>
@@ -3949,6 +4069,10 @@
           <argument>db</argument>
           <argument>DoctrineBundle:Collector:db</argument>
         </argument>
+        <argument key="data_collector.ladybug_data_collector" type="collection">
+          <argument>ladybug</argument>
+          <argument>RaulFraileLadybugBundle:Collector:ladybug</argument>
+        </argument>
       </argument>
       <argument>bottom</argument>
     </service>
@@ -3961,14 +4085,6 @@
       <argument type="service" id="profiler" on-invalid="null"/>
       <argument type="service" id="twig"/>
       <argument>true</argument>
-    </service>
-    <service id="web_profiler.debug_toolbar" class="Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener">
-      <tag name="kernel.event_subscriber"/>
-      <argument type="service" id="twig"/>
-      <argument>false</argument>
-      <argument>2</argument>
-      <argument>bottom</argument>
-      <argument type="service" id="router" on-invalid="ignore"/>
     </service>
     <service id="sensio_distribution.webconfigurator" class="Sensio\Bundle\DistributionBundle\Configurator\Configurator">
       <argument>E:/web/sfblog/app</argument>
@@ -4242,6 +4358,10 @@
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
+        <argument>E:\web\sfblog\vendor\raulfraile\ladybug-bundle\RaulFraile\Bundle\LadybugBundle/Resources/views</argument>
+        <argument>RaulFraileLadybug</argument>
+      </call>
+      <call method="addPath">
         <argument>E:\web\sfblog\src\Cwp\UserBundle/Resources/views</argument>
         <argument>CwpUser</argument>
       </call>
@@ -4256,6 +4376,10 @@
       <call method="addPath">
         <argument>E:\web\sfblog\src\Cwp\AdminBundle/Resources/views</argument>
         <argument>CwpAdmin</argument>
+      </call>
+      <call method="addPath">
+        <argument>E:\web\sfblog\src\Cwp\UtilBundle/Resources/views</argument>
+        <argument>CwpUtil</argument>
       </call>
       <call method="addPath">
         <argument>E:\web\sfblog\src\Acme\DemoBundle/Resources/views</argument>
@@ -4391,6 +4515,7 @@
     <service id="mailer" alias="swiftmailer.mailer.default"/>
     <service id="database_connection" alias="doctrine.dbal.default_connection"/>
     <service id="doctrine.orm.entity_manager" alias="doctrine.orm.default_entity_manager"/>
+    <service id="ladybug" alias="data_collector.ladybug_data_collector"/>
     <service id="fos_user.util.username_canonicalizer" alias="fos_user.util.email_canonicalizer"/>
     <service id="sensio.distribution.webconfigurator" alias="sensio_distribution.webconfigurator"/>
     <service id="console.command.sensiolabs_security_command_securitycheckercommand" alias="sensio_distribution.security_checker.command"/>

@@ -10,3 +10,6 @@ _demo:
     resource: "@AcmeDemoBundle/Controller/DemoController.php"
     type:     annotation
     prefix:   /demo
+ACME_DEMO_INDEX:
+    path:     /demo/index
+    defaults: { _controller: AcmeDemoBundle:Demo:index }

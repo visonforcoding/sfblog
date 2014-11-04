@@ -16,17 +16,12 @@ class __TwigTemplate_ea2821fc275203c583c40e869510048efcccc204ef9724b7fab23164c32
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1
-        $this->env->loadTemplate("TwigBundle:Exception:error.xml.twig")->display(array_merge($context, array("exception" => (isset($context["exception"]) ? $context["exception"] : $this->getContext($context, "exception")))));
+        $this->env->loadTemplate("TwigBundle:Exception:error.xml.twig")->display($context);
     }
 
     public function getTemplateName()
     {
         return "TwigBundle:Exception:error.rdf.twig";
-    }
-
-    public function isTraitable()
-    {
-        return false;
     }
 
     public function getDebugInfo()

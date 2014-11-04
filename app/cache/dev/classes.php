@@ -1023,14 +1023,14 @@ private $queryString;
 private $parameters = array();
 public function __construct($baseUrl ='', $method ='GET', $host ='localhost', $scheme ='http', $httpPort = 80, $httpsPort = 443, $path ='/', $queryString ='')
 {
-$this->baseUrl = $baseUrl;
-$this->method = strtoupper($method);
-$this->host = $host;
-$this->scheme = strtolower($scheme);
-$this->httpPort = $httpPort;
-$this->httpsPort = $httpsPort;
-$this->pathInfo = $path;
-$this->queryString = $queryString;
+$this->setBaseUrl($baseUrl);
+$this->setMethod($method);
+$this->setHost($host);
+$this->setScheme($scheme);
+$this->setHttpPort($httpPort);
+$this->setHttpsPort($httpsPort);
+$this->setPathInfo($path);
+$this->setQueryString($queryString);
 }
 public function fromRequest(Request $request)
 {
@@ -1041,7 +1041,7 @@ $this->setHost($request->getHost());
 $this->setScheme($request->getScheme());
 $this->setHttpPort($request->isSecure() ? $this->httpPort : $request->getPort());
 $this->setHttpsPort($request->isSecure() ? $request->getPort() : $this->httpsPort);
-$this->setQueryString($request->server->get('QUERY_STRING'));
+$this->setQueryString($request->server->get('QUERY_STRING',''));
 }
 public function getBaseUrl()
 {
@@ -1073,7 +1073,7 @@ return $this->host;
 }
 public function setHost($host)
 {
-$this->host = $host;
+$this->host = strtolower($host);
 }
 public function getScheme()
 {
@@ -1089,7 +1089,7 @@ return $this->httpPort;
 }
 public function setHttpPort($httpPort)
 {
-$this->httpPort = $httpPort;
+$this->httpPort = (int) $httpPort;
 }
 public function getHttpsPort()
 {
@@ -1097,7 +1097,7 @@ return $this->httpsPort;
 }
 public function setHttpsPort($httpsPort)
 {
-$this->httpsPort = $httpsPort;
+$this->httpsPort = (int) $httpsPort;
 }
 public function getQueryString()
 {
@@ -1105,7 +1105,7 @@ return $this->queryString;
 }
 public function setQueryString($queryString)
 {
-$this->queryString = $queryString;
+$this->queryString = (string) $queryString;
 }
 public function getParameters()
 {
@@ -2323,7 +2323,7 @@ $this->kernel = $kernel;
 }
 public function parse($controller)
 {
-if (3 != count($parts = explode(':', $controller))) {
+if (3 !== count($parts = explode(':', $controller))) {
 throw new \InvalidArgumentException(sprintf('The "%s" controller is not a valid "a:b:c" controller string.', $controller));
 }
 list($bundle, $controller, $action) = $parts;

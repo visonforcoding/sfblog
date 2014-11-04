@@ -1,7 +1,3 @@
-cwp_blog_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: CwpBlogBundle:Default:index }
-
 index:
     path:     /
     defaults: { _controller: CwpBlogBundle:Index:index }

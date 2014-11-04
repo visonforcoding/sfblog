@@ -1,3 +1,7 @@
+cwp_util:
+    resource: "@CwpUtilBundle/Resources/config/routing.yml"
+    prefix:   /
+
 cwp_admin:
     resource: "@CwpAdminBundle/Resources/config/routing.yml"
     prefix:   /admin

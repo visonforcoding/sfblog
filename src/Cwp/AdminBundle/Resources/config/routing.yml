@@ -9,3 +9,27 @@ cwp_admin_index:
 login:
     path:     /login
     defaults: { _controller: CwpAdminBundle:Index:login }
+
+cwp_admin_userlist:
+    path:     /userlist
+    defaults: { _controller: CwpAdminBundle:User:userlist }
+
+cwp_admin_adduser:
+    path:     /adduser
+    defaults: { _controller: CwpAdminBundle:User:addUser }
+    
+cwp_admin_doadduser:
+    path:     /doadduser
+    defaults: { _controller: CwpAdminBundle:User:doAddUser }
+cwp_admin_addcat:
+    path:     /addcat
+    defaults: { _controller: CwpAdminBundle:Blog:addCat }
+cwp_admin_blogcatlist:
+    path:     /blogcatlist
+    defaults: { _controller: CwpAdminBundle:Blog:catList }
+cwp_admin_bloglist:
+    path:     /bloglist
+    defaults: { _controller: CwpAdminBundle:Blog:blogList }
+cwp_admin_addblog:
+    path:     /addblog
+    defaults: { _controller: CwpAdminBundle:Blog:addBlog }    

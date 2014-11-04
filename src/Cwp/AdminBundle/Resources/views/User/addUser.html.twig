@@ -1,0 +1,69 @@
+{# empty Twig template #}
+{% extends "CwpAdminBundle:Layout:base.html.twig" %}
+
+{% block crumbs %}
+    <h1 class="page-title">添加管理员</h1>
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> </li>
+        <li><a href="users.html">Users</a> </li>
+        <li class="active">jsmith</li>
+    </ul>
+{% endblock %}
+{% block main %}
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">个人信息</a></li>
+    </ul>
+
+    <div class="row">
+        <div class="col-md-4">
+            <br>
+                    <form id="tab" action="{{path('cwp_admin_doadduser')}}" method="post">
+                        <input type="hidden" name="action" value="{$action}"/>
+                        <input type="hidden" name="classname" value="{$classname}" />
+                        <input type="hidden" name="setreferer" value="{$setreferer}" />
+                        <input type="hidden" name="id" value="{$id}" />
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input type="text" name="username" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>昵称</label>
+                            <input type="text" name="nickname" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>密码</label>
+                            <input type="password" name="pwd" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>确认密码</label>
+                            <input type="password" name="pwd2" value="" class="form-control">
+                        </div>
+                        <div class="btn-toolbar list-toolbar">
+                            <button type="" class="btn btn-primary"><i class="fa fa-save"></i> 确定</button>
+                            <a href="#myModal" data-toggle="modal" class="btn btn-danger">重置</a>
+                        </div>
+                    </form>
+
+        </div>
+    </div>
+
+    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                </div>
+                <div class="modal-body">
+
+                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>你确定要删除么？</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+                    <button class="btn btn-danger" data-dismiss="modal">删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

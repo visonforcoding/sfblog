@@ -1,0 +1,8 @@
+## YAML Template.
+Cwp\UtilBundle\Entity\BlogCategory:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+            

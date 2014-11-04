@@ -26,9 +26,8 @@ The server returned a \"";
         echo twig_escape_filter($this->env, (isset($context["status_text"]) ? $context["status_text"] : $this->getContext($context, "status_text")), "html", null, true);
         echo "\".
 
-Please e-mail us at [email] and let us know what you were doing when this
-error occurred. We will fix it as soon as possible. Sorry for any
-inconvenience caused.
+Something is broken. Please let us know what you were doing when this error occurred.
+We will fix it as soon as possible. Sorry for any inconvenience caused.
 ";
     }
 

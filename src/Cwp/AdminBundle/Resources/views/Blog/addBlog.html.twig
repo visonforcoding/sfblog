@@ -1,0 +1,82 @@
+
+{% extends "CwpAdminBundle:Layout:base.html.twig" %}
+
+{% block crumbs %}
+    <h1 class="page-title">添加博文</h1>
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> </li>
+        <li><a href="users.html">Users</a> </li>
+        <li class="active">jsmith</li>
+    </ul>
+{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-md-12">
+            <br>
+            {{ form_start(form) }}
+            {#            {{ form_start(form, {'action' : path('cwp_admin_doaddcat' ), 'method' : 'POST' }) }}#}
+            <div class="form-group">
+                {{ form_label(form.category) }}
+                {{ form_errors(form.category) }}
+                {{ form_widget(form.category) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.cover) }}
+                {{ form_widget(form.cover) }}
+                {{ form_errors(form.cover) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.guide) }}
+                {{ form_widget(form.guide) }}
+                {{ form_errors(form.guide) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content) }}
+                {{ form_errors(form.content) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.keywords) }}
+                {{ form_widget(form.keywords) }}
+                {{ form_errors(form.keywords) }}
+            </div>
+            
+            <div class="form-group">
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+                {{ form_errors(form.description) }}
+            </div>
+            <div class="form-group btn-toolbar list-toolbar">
+                <label></label>
+                <button type="" class="btn btn-primary"><i class="fa fa-save"></i> 确定</button>
+                <a href="#myModal" data-toggle="modal" class="btn btn-danger">重置</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                </div>
+                <div class="modal-body">
+
+                    <p class="error-text"><i class="fa fa-warning modal-icon"></i>你确定要删除么？</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+                    <button class="btn btn-danger" data-dismiss="modal">删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

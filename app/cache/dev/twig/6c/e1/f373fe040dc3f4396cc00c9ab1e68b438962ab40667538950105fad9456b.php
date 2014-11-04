@@ -22,10 +22,10 @@ class __TwigTemplate_6ce1f373fe040dc3f4396cc00c9ab1e68b438962ab40667538950105fad
         echo "<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=";
+        <meta charset=\"";
         // line 4
         echo twig_escape_filter($this->env, $this->env->getCharset(), "html", null, true);
-        echo "\"/>
+        echo "\" />
         <meta name=\"robots\" content=\"noindex,nofollow\" />
         <title>";
         // line 6
@@ -34,11 +34,11 @@ class __TwigTemplate_6ce1f373fe040dc3f4396cc00c9ab1e68b438962ab40667538950105fad
         <link href=\"";
         // line 7
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/framework/css/structure.css", null, true, null), "html", null, true);
-        echo "\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />
+        echo "\" rel=\"stylesheet\" />
         <link href=\"";
         // line 8
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/framework/css/body.css", null, true, null), "html", null, true);
-        echo "\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />
+        echo "\" rel=\"stylesheet\" />
         ";
         // line 9
         $this->displayBlock('head', $context, $blocks);

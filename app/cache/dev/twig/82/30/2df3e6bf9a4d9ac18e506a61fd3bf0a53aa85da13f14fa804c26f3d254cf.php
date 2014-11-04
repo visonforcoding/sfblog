@@ -7,17 +7,16 @@ class __TwigTemplate_82302df3e6bf9a4d9ac18e506a61fd3bf0a53aa85da13f14fa804c26f3d
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("::base.html.twig");
+        $this->parent = $this->env->loadTemplate("CwpAdminBundle:Layout:base.html.twig");
 
         $this->blocks = array(
-            'title' => array($this, 'block_title'),
-            'body' => array($this, 'block_body'),
+            'main' => array($this, 'block_main'),
         );
     }
 
     protected function doGetParent(array $context)
     {
-        return "::base.html.twig";
+        return "CwpAdminBundle:Layout:base.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -25,16 +24,10 @@ class __TwigTemplate_82302df3e6bf9a4d9ac18e506a61fd3bf0a53aa85da13f14fa804c26f3d
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 3
-    public function block_title($context, array $blocks = array())
+    // line 4
+    public function block_main($context, array $blocks = array())
     {
-        echo "CwpAdminBundle:Index:index";
-    }
-
-    // line 5
-    public function block_body($context, array $blocks = array())
-    {
-        // line 6
+        // line 5
         echo "<h1>Welcome to the Index:index page</h1>
 ";
     }
@@ -51,6 +44,6 @@ class __TwigTemplate_82302df3e6bf9a4d9ac18e506a61fd3bf0a53aa85da13f14fa804c26f3d
 
     public function getDebugInfo()
     {
-        return array (  38 => 6,  35 => 5,  29 => 3,);
+        return array (  31 => 5,  28 => 4,);
     }
 }

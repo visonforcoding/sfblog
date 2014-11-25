@@ -13,26 +13,31 @@ class BlogType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('title', 'text', array(
-                    'label' => '名称'))
+                    'label' => '名称',
+                    'required' => false,
+                 ))
                 ->add('category', 'entity', array(
                     'class' => 'CwpUtilBundle:BlogCategory',
                     'property' => 'name',
                     'label' => '博客分类',
+                    'required' => false
                 ))
                 ->add('guide', 'textarea', array(
-                    'label' => '引言'
+                    'label' => '引言',
+                    'required' => false
                 ))
-                ->add('cover', 'text', array(
-                    'label' => '封面'
+               ->add('content', 'image', array(
+                    'label' => '内容',
+                    'required' => false,
                 ))
-                ->add('content', 'textarea', array(
-                    'label' => '内容'
-                ))
+
                 ->add('keywords', 'text', array(
-                    'label' => '内容'
+                    'label' => 'seo关键字',
+                    'required' => false,
                 ))
                 ->add('description', 'textarea', array(
-                    'label' => '内容'
+                    'label' => 'seo描述',
+                    'required' => false,
                 ))
                 ->getForm();
     }

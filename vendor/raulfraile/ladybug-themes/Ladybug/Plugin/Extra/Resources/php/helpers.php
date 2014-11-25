@@ -1,7 +1,5 @@
 <?php
 
-
-
 // helpers
 
 /**
@@ -9,8 +7,7 @@
  *
  * @return Ladybug\Dumper
  */
-function getLadybug()
-{
+function getLadybug() {
     global $ladybug;
 
     if (is_null($ladybug)) {
@@ -24,87 +21,117 @@ function getLadybug()
  * Sets the theme
  * @param string $theme
  */
-function ladybug_set_theme($theme)
-{
+function ladybug_set_theme($theme) {
     $ladybug = getLadybug();
     $ladybug->setTheme($theme);
 }
 
-function ladybug_set_format($format)
-{
+function ladybug_set_format($format) {
     $ladybug = getLadybug();
     $ladybug->setFormat($format);
 }
 
-function ladybug_set_option($name, $value)
-{
+function ladybug_set_option($name, $value) {
     $ladybug = getLadybug();
     $ladybug->setOption($name, $value);
 }
 
-function ladybug_set_options(array $options)
-{
+function ladybug_set_options(array $options) {
     foreach ($options as $name => $value) {
         ladybug_set_option($name, $value);
     }
 }
 
-function ladybug_dump(/*$var1 [, $var2...$varN]*/)
-{
+function ladybug_dump(/* $var1 [, $var2...$varN] */) {
     $ladybug = getLadybug();
-    echo call_user_func_array(array($ladybug,'dump'), func_get_args());
+    echo call_user_func_array(array($ladybug, 'dump'), func_get_args());
 }
 
-function ladybug_dump_die(/*$var1 [, $var2...$varN]*/)
-{
+function ladybug_dump_die(/* $var1 [, $var2...$varN] */) {
     $ladybug = getLadybug();
-    echo call_user_func_array(array($ladybug,'dump'), func_get_args());
+    echo call_user_func_array(array($ladybug, 'dump'), func_get_args());
     die(1);
 }
 
-function ladybug_dump_class(/*$var1 [, $var2...$varN]*/)
-{
+function ladybug_dump_class(/* $var1 [, $var2...$varN] */) {
     $ladybug = getLadybug();
 
     $currentOptions = $ladybug->getOptions();
     $ladybug->setOption('object_max_nesting_level', 1);
 
-    echo call_user_func_array(array($ladybug,'dump'), func_get_args());
+    echo call_user_func_array(array($ladybug, 'dump'), func_get_args());
 
     $ladybug->setOptions($currentOptions);
 }
 
-function ladybug_dump_class_die(/*$var1 [, $var2...$varN]*/)
-{
+function ladybug_dump_class_die(/* $var1 [, $var2...$varN] */) {
     echo call_user_func_array('ladybug_dump_class', func_get_args());
     die(1);
 }
 
 // Shortcuts
 if (!function_exists('ld')) {
-    function ld(/*$var1 [, $var2...$varN]*/)
-    {
+
+    function ld(/* $var1 [, $var2...$varN] */) {
         call_user_func_array('ladybug_dump', func_get_args());
     }
+
 }
 
 if (!function_exists('ldd')) {
-    function ldd(/*$var1 [, $var2...$varN]*/)
-    {
+
+    function ldd(/* $var1 [, $var2...$varN] */) {
         call_user_func_array('ladybug_dump_die', func_get_args());
     }
+
 }
 
 if (!function_exists('ldc')) {
-    function ldc(/*$var1 [, $var2...$varN]*/)
-    {
+
+    function ldc(/* $var1 [, $var2...$varN] */) {
         call_user_func_array('ladybug_dump_class', func_get_args());
     }
+
 }
 
 if (!function_exists('ldcd')) {
-    function ldcd(/*$var1 [, $var2...$varN]*/)
-    {
+
+    function ldcd(/* $var1 [, $var2...$varN] */) {
         call_user_func_array('ladybug_dump_class_die', func_get_args());
+    }
+
+}
+
+/**
+ * 浏览器友好的变量输出
+ * @param mixed $var 变量
+ * @param boolean $echo 是否输出 默认为True 如果为false 则返回输出字符串
+ * @param string $label 标签 默认为空
+ * @param boolean $strict 是否严谨 默认为true
+ * @return void|string
+ */
+function dump($var, $echo = true, $label = null, $strict = true) {
+    $label = ($label === null) ? '' : rtrim($label) . ' ';
+    if (!$strict) {
+        if (ini_get('html_errors')) {
+            $output = print_r($var, true);
+            $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+        } else {
+            $output = $label . print_r($var, true);
+        }
+    } else {
+        ob_start();
+        var_dump($var);
+        $output = ob_get_clean();
+        if (!extension_loaded('xdebug')) {
+            $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
+            $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+        }
+    }
+    if ($echo) {
+        echo($output);
+        return null;
+    } else{
+        return $output;
     }
 }

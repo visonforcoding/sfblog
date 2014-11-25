@@ -31,3 +31,14 @@ span.error-info{
     color:red;
     font-weight: bold;
 }
+.form-group .hasEditor{
+    margin-left:120px;
+}
+
+.form-group .mid-text{
+    width:120px;
+}
+.form-group .mid-textarea{
+  width:700px;
+  height: 100px;
+}

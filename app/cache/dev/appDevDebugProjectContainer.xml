@@ -2436,6 +2436,9 @@
               <argument key="submit" type="collection">
                 <argument>form.type_extension.submit.validator</argument>
               </argument>
+              <argument key="image" type="collection">
+                <argument>acme_demo_bundle.image_type_extension</argument>
+              </argument>
             </argument>
             <argument type="collection">
               <argument>form.type_guesser.validator</argument>
@@ -2687,6 +2690,7 @@
       </call>
       <call method="addYamlMappings">
         <argument type="collection">
+          <argument>E:\web\sfblog\src\Cwp\BlogBundle\Resources\config\validation.yml</argument>
           <argument>E:\web\sfblog\src\Cwp\UtilBundle\Resources\config\validation.yml</argument>
         </argument>
       </call>
@@ -2966,7 +2970,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>54585749a6428</argument>
+            <argument>54677ebbc91ff</argument>
           </service>
         </argument>
       </argument>
@@ -3236,7 +3240,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>54585749a6428</argument>
+            <argument>54677ebbc91ff</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -4008,6 +4012,10 @@
       <argument type="service" id="router"/>
       <argument>86400</argument>
     </service>
+    <service id="acme_demo_bundle.image_type_extension" class="Cwp\UtilBundle\Form\Extension\ImageTypeExtension">
+      <tag name="form.type_extension" alias="image"/>
+    </service>
+    <service id="cwp_util" class="Cwp\UtilBundle\Controller\UtilController"/>
     <service id="twig.extension.acme.demo" class="Acme\DemoBundle\Twig\Extension\DemoExtension" public="false">
       <tag name="twig.extension"/>
       <argument type="service" id="twig.loader"/>

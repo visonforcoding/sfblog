@@ -123,6 +123,7 @@
   'CwpAdminBundle:User:addUser.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\AdminBundle/Resources/views/User/addUser.html.twig',
   'CwpAdminBundle:User:userlist.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\AdminBundle/Resources/views/User/userlist.html.twig',
   'CwpUtilBundle:Default:index.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\UtilBundle/Resources/views/Default/index.html.twig',
+  'CwpUtilBundle:Form:editor.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\UtilBundle/Resources/views/Form/editor.html.twig',
   'CwpUtilBundle:Form:error.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\UtilBundle/Resources/views/Form/error.html.twig',
   'CwpUtilBundle:Jump:error.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\UtilBundle/Resources/views/Jump/error.html.twig',
   'CwpUtilBundle:Jump:success.html.twig' => 'E:\\web\\sfblog\\src\\Cwp\\UtilBundle/Resources/views/Jump/success.html.twig',

@@ -81,7 +81,7 @@ class __TwigTemplate_43029ddd0a395c3650fee2d650c6acbafc3d23e8420499118d0ad8d782b
             </div>
             <div class=\"form-group btn-toolbar list-toolbar\">
                 <label></label>
-                <button type=\"\" class=\"btn btn-primary\"><i class=\"fa fa-save\"></i> 确定</button>
+                <button type=\"submit\" class=\"btn btn-primary\"><i class=\"fa fa-save\"></i> 确定</button>
                 <a href=\"#myModal\" data-toggle=\"modal\" class=\"btn btn-danger\">重置</a>
             </div>
             ";

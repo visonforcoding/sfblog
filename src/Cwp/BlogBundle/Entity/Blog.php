@@ -74,14 +74,14 @@ class Blog {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatetime", type="datetime",options={"comment"="更新时间"})
+     * @ORM\Column(name="updatetime", type="datetime",nullable=true,options={"comment"="更新时间"})
      */
     private $updatetime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="hits", type="integer",options={"comment"="点击量"})
+     * @ORM\Column(name="hits", type="integer",nullable=true,options={"comment"="点击量"})
      */
     private $hits;
 

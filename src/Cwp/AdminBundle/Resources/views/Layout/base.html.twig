@@ -14,11 +14,10 @@
         <link rel="stylesheet" type="text/css" href="{{asset('bundles/cwpadmin/css/theme.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('bundles/cwpadmin/css/premium.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('bundles/cwpadmin/css/style.css')}}">
-        <script src="{{asset('bundles/cwpadmin/lib/ueditor/ueditor.config.js')}}" ></script>
-        <script src="{{asset('bundles/cwpadmin/lib/ueditor/ueditor.all.js')}}" ></script>
-        <script href="{{asset('bundles/cwpadmin/lib/ueditor/lang/zh-cn/zh-cn.js')}}" ></script>
+        {% block javascript %}
+        {% endblock %}
         <script type="text/javascript">
-            document.domain = "sevenbaby.test";
+            document.domain = "sfblog";
         </script>
     {% block css %}{% endblock %}
 {% block js %}{% endblock %}

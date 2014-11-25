@@ -10,6 +10,7 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
         $this->parent = false;
 
         $this->blocks = array(
+            'javascript' => array($this, 'block_javascript'),
             'css' => array($this, 'block_css'),
             'js' => array($this, 'block_js'),
             'crumbs' => array($this, 'block_crumbs'),
@@ -56,27 +57,19 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
         // line 16
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/css/style.css"), "html", null, true);
         echo "\">
-        <script src=\"";
+        ";
         // line 17
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/ueditor/ueditor.config.js"), "html", null, true);
-        echo "\" ></script>
-        <script src=\"";
-        // line 18
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/ueditor/ueditor.all.js"), "html", null, true);
-        echo "\" ></script>
-        <script href=\"";
+        $this->displayBlock('javascript', $context, $blocks);
         // line 19
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/ueditor/lang/zh-cn/zh-cn.js"), "html", null, true);
-        echo "\" ></script>
-        <script type=\"text/javascript\">
-            document.domain = \"sevenbaby.test\";
+        echo "        <script type=\"text/javascript\">
+            document.domain = \"sfblog\";
         </script>
     ";
-        // line 23
+        // line 22
         $this->displayBlock('css', $context, $blocks);
-        // line 24
+        // line 23
         $this->displayBlock('js', $context, $blocks);
-        // line 25
+        // line 24
         echo "</head>
 <body class=\" theme-blue\">
     <!-- Demo page code -->
@@ -148,7 +141,7 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
                 <li class=\"dropdown hidden-xs\">
                     <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">
                         <span class=\"glyphicon glyphicon-user padding-right-small\" style=\"position:relative;top: 3px;\"></span>";
-        // line 95
+        // line 94
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "user", array()), "username", array()), "html", null, true);
         echo "
                         <i class=\"fa fa-caret-down\"></i>
@@ -177,7 +170,7 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
         <li><a href=\"#\" data-target=\".user-menu\" class=\"nav-header\" data-toggle=\"collapse\"><i class=\"fa fa-fw fa-user\"></i> 用户管理<i class=\"fa fa-collapse\"></i></a></li>
         <li><ul class=\"user-menu nav nav-list collapse \">
                 <li><a href=\"";
-        // line 121
+        // line 120
         echo $this->env->getExtension('routing')->getPath("cwp_admin_userlist");
         echo "\"><span class=\"fa fa-caret-right\"></span>管理员管理</a></li>
                 <li ><a href=\"{:U('Admin/user/add')}\"><span class=\"fa fa-caret-right\"></span>添加管理员</a></li>
@@ -187,11 +180,11 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
         <li><ul class=\"content-menu nav nav-list collapse \">
                 <li><a href=\"{:U('Admin/blog/about')}\"><span class=\"fa fa-caret-right\"></span>关于</a></li>
                 <li ><a href=\"";
-        // line 128
+        // line 127
         echo $this->env->getExtension('routing')->getPath("cwp_admin_blogcatlist");
         echo "\"><span class=\"fa fa-caret-right\"></span>类别管理</a></li>
                 <li ><a href=\"";
-        // line 129
+        // line 128
         echo $this->env->getExtension('routing')->getPath("cwp_admin_bloglist");
         echo "\"><span class=\"fa fa-caret-right\"></span>博文管理</a></li>
             </ul>
@@ -201,15 +194,15 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
 <div class=\"content\">
     <div class=\"header\">
         ";
-        // line 136
+        // line 135
         $this->displayBlock('crumbs', $context, $blocks);
-        // line 138
+        // line 137
         echo "    </div>
     <div class=\"main-content\">
         ";
-        // line 140
+        // line 139
         $this->displayBlock('main', $context, $blocks);
-        // line 142
+        // line 141
         echo "        <footer>
             <hr>
             <p class=\"pull-right\"> <a href=\"http://www.phpone.cn\" target=\"_blank\">后会无期</a> by <a href=\"mailto:caowenpeng1990@126.com\" target=\"_blank\">vison allen</a></p>
@@ -218,7 +211,7 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
     </div>
 </div>
 <script src=\"";
-        // line 149
+        // line 148
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/bootstrap/js/bootstrap.js"), "html", null, true);
         echo "\"></script>
 <script type=\"text/javascript\">
@@ -230,7 +223,7 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
         });
 </script>
 <script type=\"text/javascript\" src=\"";
-        // line 158
+        // line 157
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/js/lib.js"), "html", null, true);
         echo "\" ></script>
 </body>
@@ -238,27 +231,34 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
 ";
     }
 
-    // line 23
+    // line 17
+    public function block_javascript($context, array $blocks = array())
+    {
+        // line 18
+        echo "        ";
+    }
+
+    // line 22
     public function block_css($context, array $blocks = array())
     {
     }
 
-    // line 24
+    // line 23
     public function block_js($context, array $blocks = array())
     {
     }
 
-    // line 136
+    // line 135
     public function block_crumbs($context, array $blocks = array())
     {
-        // line 137
+        // line 136
         echo "        ";
     }
 
-    // line 140
+    // line 139
     public function block_main($context, array $blocks = array())
     {
-        // line 141
+        // line 140
         echo "        ";
     }
 
@@ -274,6 +274,6 @@ class __TwigTemplate_cfe70b09735ff30e6611d1dc407dbdeb11385f1130845afc3b892541018
 
     public function getDebugInfo()
     {
-        return array (  262 => 141,  259 => 140,  255 => 137,  252 => 136,  247 => 24,  242 => 23,  234 => 158,  222 => 149,  213 => 142,  211 => 140,  207 => 138,  205 => 136,  195 => 129,  191 => 128,  181 => 121,  152 => 95,  80 => 25,  78 => 24,  76 => 23,  69 => 19,  65 => 18,  61 => 17,  57 => 16,  53 => 15,  49 => 14,  45 => 13,  41 => 12,  37 => 11,  33 => 10,  23 => 2,);
+        return array (  262 => 140,  259 => 139,  255 => 136,  252 => 135,  247 => 23,  242 => 22,  238 => 18,  235 => 17,  227 => 157,  215 => 148,  206 => 141,  204 => 139,  200 => 137,  198 => 135,  188 => 128,  184 => 127,  174 => 120,  145 => 94,  73 => 24,  71 => 23,  69 => 22,  64 => 19,  62 => 17,  58 => 16,  54 => 15,  50 => 14,  46 => 13,  42 => 12,  38 => 11,  34 => 10,  24 => 2,);
     }
 }

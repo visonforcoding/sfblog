@@ -1,6 +1,9 @@
-
 {% extends "CwpAdminBundle:Layout:base.html.twig" %}
-
+{% block javascript %}
+    <script src="{{asset('bundles/cwpadmin/lib/ueditor/ueditor.config.js')}}" ></script>
+    <script src="{{asset('bundles/cwpadmin/lib/ueditor/ueditor.all.js')}}" ></script>
+    <script href="{{asset('bundles/cwpadmin/lib/ueditor/lang/zh-cn/zh-cn.js')}}" ></script>
+{%endblock%}
 {% block crumbs %}
     <h1 class="page-title">添加博文</h1>
     <ul class="breadcrumb">
@@ -13,53 +16,79 @@
     <div class="row">
         <div class="col-md-12">
             <br>
-            {{ form_start(form) }}
-            {#            {{ form_start(form, {'action' : path('cwp_admin_doaddcat' ), 'method' : 'POST' }) }}#}
-            <div class="form-group">
-                {{ form_label(form.category) }}
-                {{ form_errors(form.category) }}
-                {{ form_widget(form.category) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.title) }}
-                {{ form_widget(form.title) }}
-                {{ form_errors(form.title) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.cover) }}
-                {{ form_widget(form.cover) }}
-                {{ form_errors(form.cover) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.guide) }}
-                {{ form_widget(form.guide) }}
-                {{ form_errors(form.guide) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.content) }}
-                {{ form_widget(form.content) }}
-                {{ form_errors(form.content) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.keywords) }}
-                {{ form_widget(form.keywords) }}
-                {{ form_errors(form.keywords) }}
-            </div>
+            <form class="form-horizontal" role="form" method="post">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+                    <div class="col-sm-4">
+                        <input name="title" type="type" class="form-control" id="inputEmail3" >
+                    </div>
+                    {% include 'CwpUtilBundle:Form:error.html.twig' with {'field' : 'title' } %}
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">类别</label>
+                    <div class="col-sm-8">
+                        <select name="pid" class="form-control">
+                            {% for cat in catlist %}
+                                <option value="{{cat.id}}">{{ cat.html}}{{cat.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">封面</label>
+                    <div class="col-sm-8">
+                        <div id="tdimgcover" style="display: inline-block">
+                            <div class="showImg" style="height:163px;">
+                                <div id="discover" class="showImgC">
+
+                                </div>
+                                <div id="btnimgcover">
+                                    <input type="button" style="width: 133px;" class="btn btn-primary" id="coverBtn" value="上传图片" />
+                                </div>
+                                <input type="hidden" name="cover" id="cover" value="{$Rs['fcover']}" />
+                            </div>
+                            <script id="covereditor"></script>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">引言</label>
+                    <div class="col-sm-8">
+                        <textarea name="guide" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
+                    <div class="col-sm-8">
+                        <script class="editor" id="content" name="content" type="text/plain"></script>
+                        <script type="text/javascript">
+                            var editor = UE.getEditor('content');
+                        </script>
+                    </div>
             
-            <div class="form-group">
-                {{ form_label(form.description) }}
-                {{ form_widget(form.description) }}
-                {{ form_errors(form.description) }}
-            </div>
-            <div class="form-group btn-toolbar list-toolbar">
-                <label></label>
-                <button type="" class="btn btn-primary"><i class="fa fa-save"></i> 确定</button>
-                <a href="#myModal" data-toggle="modal" class="btn btn-danger">重置</a>
-            </div>
-            {{ form_end(form) }}
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">seo关键字</label>
+                    <div class="col-sm-4">
+                        <input name="keywords" type="text" class="form-control" id="inputEmail3" >
+                    </div>
+                             {% include 'CwpUtilBundle:Form:error.html.twig' with {'field' : 'content' } %}
+                </div>         
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">seo描述</label>
+                    <div class="col-sm-8">
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-
     <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -78,5 +107,10 @@
             </div>
         </div>
     </div>
-
+    <script type="text/javascript">
+        /*图片上传*/
+        $(function () {
+            initImageUpload('covereditor', 'cover', 'discover', 'coverBtn');
+        });
+    </script>
 {% endblock %}

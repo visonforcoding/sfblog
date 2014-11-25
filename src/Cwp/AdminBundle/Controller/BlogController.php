@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Cwp\UtilBundle\Form\Type\BlogcatType;
 use Cwp\BlogBundle\Form\Type\BlogType;
 use Cwp\UtilBundle\Utils\Page\Page2;
+use Cwp\UtilBundle\Controller\BackendController;
+use Symfony\Component\HttpFoundation\Response;
 
-class BlogController extends Controller {
+class BlogController extends BackendController {
 
     public function catListAction() {
 
@@ -70,13 +72,12 @@ class BlogController extends Controller {
                     'form' => $form->createView()
         ));
     }
-    
-    
+
     /**
      * 博文管理
      * @return type
      */
-    public function blogListAction(){
+    public function blogListAction() {
         $BlogRepository = $this->getDoctrine()->getRepository('CwpBlogBundle:Blog');
         $blogList = $BlogRepository->findAll();
         $total = count($blogList);
@@ -91,48 +92,60 @@ class BlogController extends Controller {
                 ->setMaxResults($Page->pageSize)
                 ->getQuery();
         $rows = $query->getResult();
-           return $this->render('CwpAdminBundle:Blog:blogList.html.twig', array(
-               'show'=>$show,
-               'rows'=>$rows
+        return $this->render('CwpAdminBundle:Blog:blogList.html.twig', array(
+                    'show' => $show,
+                    'rows' => $rows
         ));
     }
-    
-    public function addBlogAction(Request $request){
+
+    public function addBlogAction(Request $request) {
         $Blog = new Blog();
-        $form = $this->createForm(new BlogType, $Blog);
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $pid = $request->get('pid');
-                $pid = empty($pid) ? 0 : $pid;  //暂未解决field 为entity 添加默认值的方法补救
-                $data = $form->getData();
-                ladybug_dump($data);
-                exit();
-                $name = $form->get('category')->getData();
-                $name = $form->get('name')->getData();
-                $Blog->setPid($pid);
-                $Blog->setName($name);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($Blog);
-                $em->flush();
-                if (empty($Blog->getId())) {
-                    return $this->render('CwpUtilBundle:Jump:error.html.twig', array(
-                                'redirectUrl' => $this->generateUrl('cwp_admin_addcat'),
-                                'time' => '3',
-                                'message' => '发生错误！'));
-                } else {
-                    return $this->render('CwpUtilBundle:Jump:success.html.twig', array(
-                                'redirectUrl' => $this->generateUrl('cwp_admin_blogcatlist'),
-                                'time' => '3',
-                                'message' => '添加成功!',));
+        $em = $this->getDoctrine()->getManager();
+        $BlogCategoryRepository = $this->getDoctrine()->getRepository('CwpUtilBundle:BlogCategory');
+        $query_blogcat = $BlogCategoryRepository->createQueryBuilder('B')
+                ->getQuery();
+        $blogCatList = $query_blogcat->getArrayResult();
+        $util = $this->get('cwp_util');
+        $blogCatFormatList = $util->tree($blogCatList);
+        $success = false;
+        if ($request->getMethod() == 'POST') {
+            $pid = $request->get('pid');
+            $category = $BlogCategoryRepository->findOneById($pid);
+            $Blog->setTitle($request->get('title'));
+            $Blog->setCategory($category);
+            $Blog->setCover($request->get('cover'));
+            $Blog->setGuide($request->get('guide'));
+            $Blog->setContent($request->get('content'));
+            $Blog->setKeywords($request->get('keywords'));
+            $Blog->setDescription($request->get('description'));
+            $validator = $this->get('validator');
+            $errors = $validator->validate($Blog);
+            if (count($errors) > 0) {
+                $errorsList = array();
+                foreach ($errors as $value) {
+                    $field = $value->getPropertyPath();
+                    $message = $value->getMessage();
+                    $errorsList[][$field] = $message;
                 }
+                return $this->render('CwpAdminBundle:Blog:addBlog.html.twig', array(
+                            'catlist' => $blogCatFormatList,
+                            'errors'=>$errorsList
+                ));
+            }
+            $em->persist($Blog);
+            $em->flush();
+            if ($Blog->getId()) {
+                $success = true;
+            }
+            if ($success) {
+                return $this->success('cwp_admin_bloglist');
+            } else {
+                return $this->error();
             }
         }
-
         return $this->render('CwpAdminBundle:Blog:addBlog.html.twig', array(
-                    'form' => $form->createView()
+                    'catlist' => $blogCatFormatList
         ));
     }
-    
 
 }

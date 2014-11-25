@@ -10,6 +10,7 @@ class __TwigTemplate_af82d4623e81095825e4987cf4cf5e531afe629421b9468c3ca16cffac4
         $this->parent = $this->env->loadTemplate("CwpAdminBundle:Layout:base.html.twig");
 
         $this->blocks = array(
+            'javascript' => array($this, 'block_javascript'),
             'crumbs' => array($this, 'block_crumbs'),
             'main' => array($this, 'block_main'),
         );
@@ -25,10 +26,28 @@ class __TwigTemplate_af82d4623e81095825e4987cf4cf5e531afe629421b9468c3ca16cffac4
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 4
+    // line 2
+    public function block_javascript($context, array $blocks = array())
+    {
+        // line 3
+        echo "    <script src=\"";
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/ueditor/ueditor.config.js"), "html", null, true);
+        echo "\" ></script>
+    <script src=\"";
+        // line 4
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/ueditor/ueditor.all.js"), "html", null, true);
+        echo "\" ></script>
+    <script href=\"";
+        // line 5
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpadmin/lib/ueditor/lang/zh-cn/zh-cn.js"), "html", null, true);
+        echo "\" ></script>
+";
+    }
+
+    // line 7
     public function block_crumbs($context, array $blocks = array())
     {
-        // line 5
+        // line 8
         echo "    <h1 class=\"page-title\">添加博文</h1>
     <ul class=\"breadcrumb\">
         <li><a href=\"index.html\">Home</a> </li>
@@ -38,130 +57,107 @@ class __TwigTemplate_af82d4623e81095825e4987cf4cf5e531afe629421b9468c3ca16cffac4
 ";
     }
 
-    // line 12
+    // line 15
     public function block_main($context, array $blocks = array())
     {
-        // line 13
+        // line 16
         echo "    <div class=\"row\">
         <div class=\"col-md-12\">
             <br>
-            ";
-        // line 16
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_start');
-        echo "
-            ";
-        // line 18
-        echo "            <div class=\"form-group\">
-                ";
-        // line 19
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "category", array()), 'label');
-        echo "
-                ";
-        // line 20
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "category", array()), 'errors');
-        echo "
-                ";
-        // line 21
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "category", array()), 'widget');
-        echo "
-            </div>
-            <div class=\"form-group\">
-                ";
-        // line 24
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "title", array()), 'label');
-        echo "
-                ";
+            <form class=\"form-horizontal\" role=\"form\" method=\"post\">
+                <div class=\"form-group\">
+                    <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">标题</label>
+                    <div class=\"col-sm-4\">
+                        <input name=\"title\" type=\"type\" class=\"form-control\" id=\"inputEmail3\" >
+                    </div>
+                    ";
         // line 25
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "title", array()), 'widget');
-        echo "
-                ";
+        $this->env->loadTemplate("CwpUtilBundle:Form:error.html.twig")->display(array_merge($context, array("field" => "title")));
         // line 26
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "title", array()), 'errors');
-        echo "
-            </div>
-            <div class=\"form-group\">
-                ";
-        // line 29
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "cover", array()), 'label');
-        echo "
-                ";
-        // line 30
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "cover", array()), 'widget');
-        echo "
-                ";
+        echo "                </div>
+                <div class=\"form-group\">
+                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">类别</label>
+                    <div class=\"col-sm-8\">
+                        <select name=\"pid\" class=\"form-control\">
+                            ";
         // line 31
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "cover", array()), 'errors');
-        echo "
-            </div>
-            <div class=\"form-group\">
-                ";
+        $context['_parent'] = (array) $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["catlist"]) ? $context["catlist"] : $this->getContext($context, "catlist")));
+        foreach ($context['_seq'] as $context["_key"] => $context["cat"]) {
+            // line 32
+            echo "                                <option value=\"";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["cat"], "id", array()), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, $this->getAttribute($context["cat"], "html", array()), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute($context["cat"], "name", array()), "html", null, true);
+            echo "</option>
+                            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cat'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
         // line 34
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "guide", array()), 'label');
-        echo "
-                ";
-        // line 35
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "guide", array()), 'widget');
-        echo "
-                ";
-        // line 36
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "guide", array()), 'errors');
-        echo "
-            </div>
-            <div class=\"form-group\">
-                ";
-        // line 39
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "content", array()), 'label');
-        echo "
-                ";
-        // line 40
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "content", array()), 'widget');
-        echo "
-                ";
-        // line 41
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "content", array()), 'errors');
-        echo "
-            </div>
-            <div class=\"form-group\">
-                ";
-        // line 44
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "keywords", array()), 'label');
-        echo "
-                ";
-        // line 45
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "keywords", array()), 'widget');
-        echo "
-                ";
-        // line 46
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "keywords", array()), 'errors');
-        echo "
-            </div>
+        echo "                        </select>
+                    </div>
+                </div>
+                <div class=\"form-group\">
+                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">封面</label>
+                    <div class=\"col-sm-8\">
+                        <div id=\"tdimgcover\" style=\"display: inline-block\">
+                            <div class=\"showImg\" style=\"height:163px;\">
+                                <div id=\"discover\" class=\"showImgC\">
+
+                                </div>
+                                <div id=\"btnimgcover\">
+                                    <input type=\"button\" style=\"width: 133px;\" class=\"btn btn-primary\" id=\"coverBtn\" value=\"上传图片\" />
+                                </div>
+                                <input type=\"hidden\" name=\"cover\" id=\"cover\" value=\"{\$Rs['fcover']}\" />
+                            </div>
+                            <script id=\"covereditor\"></script>
+                        </div>
+                    </div>
+                </div>
+                <div class=\"form-group\">
+                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">引言</label>
+                    <div class=\"col-sm-8\">
+                        <textarea name=\"guide\" class=\"form-control\" rows=\"3\"></textarea>
+                    </div>
+                </div>
+                <div class=\"form-group\">
+                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">内容</label>
+                    <div class=\"col-sm-8\">
+                        <script class=\"editor\" id=\"content\" name=\"content\" type=\"text/plain\"></script>
+                        <script type=\"text/javascript\">
+                            var editor = UE.getEditor('content');
+                        </script>
+                    </div>
             
-            <div class=\"form-group\">
-                ";
-        // line 50
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "description", array()), 'label');
-        echo "
-                ";
-        // line 51
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "description", array()), 'widget');
-        echo "
-                ";
-        // line 52
-        echo $this->env->getExtension('form')->renderer->searchAndRenderBlock($this->getAttribute((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), "description", array()), 'errors');
-        echo "
-            </div>
-            <div class=\"form-group btn-toolbar list-toolbar\">
-                <label></label>
-                <button type=\"\" class=\"btn btn-primary\"><i class=\"fa fa-save\"></i> 确定</button>
-                <a href=\"#myModal\" data-toggle=\"modal\" class=\"btn btn-danger\">重置</a>
-            </div>
-            ";
-        // line 59
-        echo         $this->env->getExtension('form')->renderer->renderBlock((isset($context["form"]) ? $context["form"] : $this->getContext($context, "form")), 'form_end');
-        echo "
+                </div>
+                <div class=\"form-group\">
+                    <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">seo关键字</label>
+                    <div class=\"col-sm-4\">
+                        <input name=\"keywords\" type=\"text\" class=\"form-control\" id=\"inputEmail3\" >
+                    </div>
+                             ";
+        // line 75
+        $this->env->loadTemplate("CwpUtilBundle:Form:error.html.twig")->display(array_merge($context, array("field" => "content")));
+        // line 76
+        echo "                </div>         
+                <div class=\"form-group\">
+                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">seo描述</label>
+                    <div class=\"col-sm-8\">
+                        <textarea name=\"description\" class=\"form-control\" rows=\"3\"></textarea>
+                    </div>
+                </div>
+                <div class=\"form-group\">
+                    <label for=\"inputPassword3\" class=\"col-sm-2 control-label\"></label>
+                    <div class=\"col-sm-8\">
+                        <button type=\"submit\" class=\"btn btn-default\">Sign in</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-
     <div class=\"modal small fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">
         <div class=\"modal-dialog\">
             <div class=\"modal-content\">
@@ -180,7 +176,12 @@ class __TwigTemplate_af82d4623e81095825e4987cf4cf5e531afe629421b9468c3ca16cffac4
             </div>
         </div>
     </div>
-
+    <script type=\"text/javascript\">
+        /*图片上传*/
+        \$(function () {
+            initImageUpload('covereditor', 'cover', 'discover', 'coverBtn');
+        });
+    </script>
 ";
     }
 
@@ -196,6 +197,6 @@ class __TwigTemplate_af82d4623e81095825e4987cf4cf5e531afe629421b9468c3ca16cffac4
 
     public function getDebugInfo()
     {
-        return array (  160 => 59,  150 => 52,  146 => 51,  142 => 50,  135 => 46,  131 => 45,  127 => 44,  121 => 41,  117 => 40,  113 => 39,  107 => 36,  103 => 35,  99 => 34,  93 => 31,  89 => 30,  85 => 29,  79 => 26,  75 => 25,  71 => 24,  65 => 21,  61 => 20,  57 => 19,  54 => 18,  50 => 16,  45 => 13,  42 => 12,  32 => 5,  29 => 4,);
+        return array (  145 => 76,  143 => 75,  100 => 34,  88 => 32,  84 => 31,  77 => 26,  75 => 25,  64 => 16,  61 => 15,  51 => 8,  48 => 7,  42 => 5,  38 => 4,  33 => 3,  30 => 2,);
     }
 }

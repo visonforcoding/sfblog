@@ -2,3 +2,9 @@ services:
 #    cwp_util.example:
 #        class: Cwp\UtilBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+     acme_demo_bundle.image_type_extension:
+              class: Cwp\UtilBundle\Form\Extension\ImageTypeExtension
+              tags:
+                  - { name: form.type_extension, alias: image }
+     cwp_util:
+              class: Cwp\UtilBundle\Controller\UtilController

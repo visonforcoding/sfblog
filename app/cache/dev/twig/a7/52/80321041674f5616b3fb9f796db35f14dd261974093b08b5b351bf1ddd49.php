@@ -108,7 +108,7 @@ class __TwigTemplate_a75280321041674f5616b3fb9f796db35f14dd261974093b08b5b351bf1
             echo "</td>
                 <td>";
             // line 40
-            echo twig_escape_filter($this->env, $this->getAttribute($context["row"], "author", array()), "html", null, true);
+            echo twig_escape_filter($this->env, $this->getAttribute($context["row"], "title", array()), "html", null, true);
             echo "</td>
                 <td>";
             // line 41

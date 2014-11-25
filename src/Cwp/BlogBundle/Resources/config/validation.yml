@@ -1,0 +1,9 @@
+Cwp\BlogBundle\Entity\Blog:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: title
+    properties:
+        title:
+            - NotBlank: ~
+        content:
+            - NotBlank: ~
+            

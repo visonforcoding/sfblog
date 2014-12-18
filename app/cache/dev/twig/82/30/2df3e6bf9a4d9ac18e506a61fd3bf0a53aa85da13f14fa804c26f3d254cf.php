@@ -7,7 +7,7 @@ class __TwigTemplate_82302df3e6bf9a4d9ac18e506a61fd3bf0a53aa85da13f14fa804c26f3d
     {
         parent::__construct($env);
 
-        $this->parent = $this->env->loadTemplate("CwpAdminBundle:Layout:base.html.twig");
+        $this->parent = $this->env->loadTemplate("CwpUtilBundle:Layout:layout.html.twig");
 
         $this->blocks = array(
             'main' => array($this, 'block_main'),
@@ -16,7 +16,7 @@ class __TwigTemplate_82302df3e6bf9a4d9ac18e506a61fd3bf0a53aa85da13f14fa804c26f3d
 
     protected function doGetParent(array $context)
     {
-        return "CwpAdminBundle:Layout:base.html.twig";
+        return "CwpUtilBundle:Layout:layout.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())

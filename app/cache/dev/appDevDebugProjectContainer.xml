@@ -446,7 +446,7 @@
     <parameter key="assetic.write_to">E:/web/sfblog/app/../web</parameter>
     <parameter key="assetic.variables" type="collection"/>
     <parameter key="assetic.java.bin">C:\ProgramData\Oracle\Java\javapath\java.EXE</parameter>
-    <parameter key="assetic.node.bin">/usr/bin/node</parameter>
+    <parameter key="assetic.node.bin">C:\Program Files (x86)\nodejs\\node.EXE</parameter>
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
@@ -2970,7 +2970,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>54677ebbc91ff</argument>
+            <argument>549199d1dfbdb</argument>
           </service>
         </argument>
       </argument>
@@ -3193,7 +3193,7 @@
                   </service>
                 </argument>
                 <argument type="collection">
-                  <argument key="default_target_path">/admin/index</argument>
+                  <argument key="default_target_path">/admin/index/index</argument>
                   <argument key="always_use_default_target_path">false</argument>
                   <argument key="login_path">/login</argument>
                   <argument key="target_path_parameter">_target_path</argument>
@@ -3240,7 +3240,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>54677ebbc91ff</argument>
+            <argument>549199d1dfbdb</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -4015,7 +4015,15 @@
     <service id="acme_demo_bundle.image_type_extension" class="Cwp\UtilBundle\Form\Extension\ImageTypeExtension">
       <tag name="form.type_extension" alias="image"/>
     </service>
-    <service id="cwp_util" class="Cwp\UtilBundle\Controller\UtilController"/>
+    <service id="cwp_util" class="Cwp\UtilBundle\Controller\UtilController">
+      <tag name="cwp_util_function" alias="util"/>
+    </service>
+    <service id="cwp_menu" class="Cwp\UtilBundle\Controller\MenuController">
+      <argument type="service" id="cwp_util"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
     <service id="twig.extension.acme.demo" class="Acme\DemoBundle\Twig\Extension\DemoExtension" public="false">
       <tag name="twig.extension"/>
       <argument type="service" id="twig.loader"/>

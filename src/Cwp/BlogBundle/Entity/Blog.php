@@ -106,6 +106,15 @@ class Blog {
     public function getCategory(){
         return $this->category;
     }
+    
+     public function setAuthor($author){
+        $this->author = $author;
+        return $this;
+    }
+    
+    public function getAuthor(){
+        return $this->author;
+    }
 
     /**
      * Get id

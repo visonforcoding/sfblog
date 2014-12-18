@@ -5,4 +5,17 @@ Cwp\UtilBundle\Entity\BlogCategory:
     properties:
         name:
             - NotBlank: ~
+Cwp\UtilBundle\Entity\Menu:
+     constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+               fields : name
+               message: "节点名称已存在"        
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+               fields : node
+               message: "节点路径已存在"
+     properties:
+            remark:
+                  - NotBlank: 
+                     message: "最好填一下啦"      
+         
             

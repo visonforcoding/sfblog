@@ -10,7 +10,7 @@ class __TwigTemplate_3a9dcc96a89cf40df75f6775cea65fb4498e54c89c025a3929a42c88e09
         $this->parent = $this->env->loadTemplate("form_div_layout.html.twig");
 
         $this->blocks = array(
-            'editor_widget' => array($this, 'block_editor_widget'),
+            'file_widget' => array($this, 'block_file_widget'),
         );
     }
 
@@ -25,18 +25,26 @@ class __TwigTemplate_3a9dcc96a89cf40df75f6775cea65fb4498e54c89c025a3929a42c88e09
     }
 
     // line 2
-    public function block_editor_widget($context, array $blocks = array())
+    public function block_file_widget($context, array $blocks = array())
     {
         // line 3
+        echo "    ";
         ob_start();
         // line 4
+        echo "        ";
         $this->displayBlock("form_widget", $context, $blocks);
         echo "
-<script class=\"editor hasEditor\" id=\"info\" name=\"info\" type=\"text/plain\"></script>
-                <script type=\"text/javascript\">
-                   var editor = UE.getEditor('info');
- </script>
-";
+        ";
+        // line 5
+        if ((!(null === (isset($context["image_url"]) ? $context["image_url"] : $this->getContext($context, "image_url"))))) {
+            // line 6
+            echo "            <img src=\"";
+            echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl((isset($context["image_url"]) ? $context["image_url"] : $this->getContext($context, "image_url"))), "html", null, true);
+            echo "\"/>
+        ";
+        }
+        // line 8
+        echo "    ";
         echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
     }
 
@@ -52,6 +60,6 @@ class __TwigTemplate_3a9dcc96a89cf40df75f6775cea65fb4498e54c89c025a3929a42c88e09
 
     public function getDebugInfo()
     {
-        return array (  33 => 4,  31 => 3,  28 => 2,);
+        return array (  47 => 8,  41 => 6,  39 => 5,  34 => 4,  31 => 3,  28 => 2,);
     }
 }

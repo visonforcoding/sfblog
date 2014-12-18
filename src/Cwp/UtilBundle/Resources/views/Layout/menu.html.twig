@@ -1,0 +1,18 @@
+{# empty Twig template #}
+<!--菜单-->
+{% for menu in menus%}
+    <li {% if menu.path_top is defined and menu.path_top == true %}class="active" {% endif %}>
+    <span title="Table">
+        <i class="{{menu.class}}"></i>
+        <span class="nav-title">{{menu.name}}</span>
+    </span>
+    <ul class="inner-nav">
+        {% if menu.child is defined %}
+        {% for value in menu.child%}
+        <li {% if value.path_sec is defined and value.path_sec == true %}class="active"{% endif %}>
+            <a href="{{path(value.node)}}"><i class="{{value.class}}"></i>{{value.name}}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</li>
+{% endfor %}

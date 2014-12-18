@@ -8,6 +8,7 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
+        $this->get('cwp_menu')->init_menu();
         return $this->render('CwpAdminBundle:Index:index.html.twig', array(
                 // ...
             ));    }

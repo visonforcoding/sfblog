@@ -3,7 +3,8 @@ Cwp\BlogBundle\Entity\Blog:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: title
     properties:
         title:
-            - NotBlank: ~
+            - NotBlank: 
+               message: "标题不可为空"
         content:
             - NotBlank: ~
             

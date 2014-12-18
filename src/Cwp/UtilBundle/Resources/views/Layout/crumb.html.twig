@@ -1,0 +1,14 @@
+{# empty Twig template #}
+<ul class="breadcrumb">
+    <li>
+        <i class="{%if top_menu is defined %}{{top_menu.class}}{% endif %}"></i>{{top_menu.name}}
+        <span class="divider">&raquo;</span>
+    </li>
+    <li>
+        <a href="#">{{sec_menu.name}}</a>
+    </li>
+</ul>
+
+<h1 id="main-heading">
+    {{sec_menu.name}} <span>{{sec_menu.remark}}</span>
+</h1>

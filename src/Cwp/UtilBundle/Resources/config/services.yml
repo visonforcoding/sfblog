@@ -8,3 +8,10 @@ services:
                   - { name: form.type_extension, alias: image }
      cwp_util:
               class: Cwp\UtilBundle\Controller\UtilController
+              tags:
+                  - { name: cwp_util_function, alias: util }
+     cwp_menu:
+              class: Cwp\UtilBundle\Controller\MenuController
+              calls:
+                     - [setContainer, [@service_container]]
+              arguments: [@cwp_util]

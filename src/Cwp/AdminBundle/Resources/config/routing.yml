@@ -3,7 +3,7 @@ cwp_admin_homepage:
     defaults: { _controller: CwpAdminBundle:Default:index }
 
 cwp_admin_index:
-    path:     /index
+    path:     /index/index
     defaults: { _controller: CwpAdminBundle:Index:index }
 
 login:
@@ -28,8 +28,24 @@ cwp_admin_blogcatlist:
     path:     /blogcatlist
     defaults: { _controller: CwpAdminBundle:Blog:catList }
 cwp_admin_bloglist:
-    path:     /bloglist
+    path:     /content/blog_list
     defaults: { _controller: CwpAdminBundle:Blog:blogList }
 cwp_admin_addblog:
-    path:     /addblog
-    defaults: { _controller: CwpAdminBundle:Blog:addBlog }    
+    path:     /content/blog_add
+    defaults: { _controller: CwpAdminBundle:Blog:addBlog }
+cwp_admin_blogupdate:
+    path:     /content/blog_update
+    defaults: { _controller: CwpAdminBundle:Blog:blogUpdate }
+#菜单管理    
+cwp_admin_menulist:
+    path:     /user/menu_list
+    defaults: { _controller: CwpAdminBundle:Menu:menuList }    
+cwp_admin_addmenu:
+    path:     /user/menu_add
+    defaults: { _controller: CwpAdminBundle:Menu:addMenu }    
+cwp_admin_menuupdate:
+    path:     /user/menu_update
+    defaults: { _controller: CwpAdminBundle:Menu:menuUpdate }
+cwp_admin_menudel:
+    path:     /user/menu_del
+    defaults: { _controller: CwpAdminBundle:Menu:menuDel }  

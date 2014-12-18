@@ -21,6 +21,7 @@ class AppKernel extends Kernel {
             new Cwp\BlogBundle\CwpBlogBundle(),
             new Cwp\AdminBundle\CwpAdminBundle(),
             new Cwp\UtilBundle\CwpUtilBundle(),
+            //new FOS\RestBundle\FOSRestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

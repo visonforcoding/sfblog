@@ -139,7 +139,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             // cwp_admin_index
-            if ($pathinfo === '/admin/index') {
+            if ($pathinfo === '/admin/index/index') {
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\IndexController::indexAction',  '_route' => 'cwp_admin_index',);
             }
 
@@ -168,38 +168,67 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addCatAction',  '_route' => 'cwp_admin_addcat',);
             }
 
-            if (0 === strpos($pathinfo, '/admin/blog')) {
-                // cwp_admin_blogcatlist
-                if ($pathinfo === '/admin/blogcatlist') {
-                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::catListAction',  '_route' => 'cwp_admin_blogcatlist',);
+            // cwp_admin_blogcatlist
+            if ($pathinfo === '/admin/blogcatlist') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::catListAction',  '_route' => 'cwp_admin_blogcatlist',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/content/blog_')) {
+                // cwp_admin_bloglist
+                if ($pathinfo === '/admin/content/blog_list') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::blogListAction',  '_route' => 'cwp_admin_bloglist',);
                 }
 
-                // cwp_admin_bloglist
-                if ($pathinfo === '/admin/bloglist') {
-                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::blogListAction',  '_route' => 'cwp_admin_bloglist',);
+                // cwp_admin_addblog
+                if ($pathinfo === '/admin/content/blog_add') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addBlogAction',  '_route' => 'cwp_admin_addblog',);
+                }
+
+                // cwp_admin_blogupdate
+                if ($pathinfo === '/admin/content/blog_update') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::blogUpdateAction',  '_route' => 'cwp_admin_blogupdate',);
                 }
 
             }
 
-            // cwp_admin_addblog
-            if ($pathinfo === '/admin/addblog') {
-                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addBlogAction',  '_route' => 'cwp_admin_addblog',);
+            if (0 === strpos($pathinfo, '/admin/user/menu_')) {
+                // cwp_admin_menulist
+                if ($pathinfo === '/admin/user/menu_list') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::menuListAction',  '_route' => 'cwp_admin_menulist',);
+                }
+
+                // cwp_admin_addmenu
+                if ($pathinfo === '/admin/user/menu_add') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::addMenuAction',  '_route' => 'cwp_admin_addmenu',);
+                }
+
+                // cwp_admin_menuupdate
+                if ($pathinfo === '/admin/user/menu_update') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::menuUpdateAction',  '_route' => 'cwp_admin_menuupdate',);
+                }
+
+                // cwp_admin_menudel
+                if ($pathinfo === '/admin/user/menu_del') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::menuDelAction',  '_route' => 'cwp_admin_menudel',);
+                }
+
             }
 
         }
 
         // index
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'index');
-            }
-
+        if ($pathinfo === '/index') {
             return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::indexAction',  '_route' => 'index',);
+        }
+
+        // cwp_blog_blogread
+        if (0 === strpos($pathinfo, '/blog/single') && preg_match('#^/blog/single\\-(?P<blog_id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_blog_blogread')), array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::blogReadAction',));
         }
 
         // cwp_user_homepage
         if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_user_homepage')), array (  '_controller' => 'Cwp\\UserBundle\\Controller\\DefaultController::indexAction',));
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_user_homepage')), array (  '_controller' => 'CwpUserBundle:Default:index',));
         }
 
         if (0 === strpos($pathinfo, '/log')) {

@@ -13,7 +13,7 @@ $apcLoader = new ApcClassLoader('sf2', $loader);
 $loader->unregister();
 $apcLoader->register(true);
 */
-
+require_once __DIR__ . '/../app/config/app_config.php';  //自己添加的，用于配置项目自身的一些额外设置
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 

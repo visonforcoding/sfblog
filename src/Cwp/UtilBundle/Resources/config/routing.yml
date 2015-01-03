@@ -4,3 +4,6 @@ cwp_util_homepage:
 cwp_util_addCat:
     path:     /util/index
     defaults: { _controller: CwpUtilBundle:Category:addCat }
+cwp_util_forbidden:
+    path:     /util/forbidden
+    defaults: { _controller: CwpUtilBundle:Backend:forbidden }

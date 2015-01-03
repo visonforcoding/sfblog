@@ -32,9 +32,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_util_homepage')), array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\DefaultController::indexAction',));
         }
 
-        // cwp_util_addCat
-        if ($pathinfo === '/util/index') {
-            return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\CategoryController::addCatAction',  '_route' => 'cwp_util_addCat',);
+        if (0 === strpos($pathinfo, '/util')) {
+            // cwp_util_addCat
+            if ($pathinfo === '/util/index') {
+                return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\CategoryController::addCatAction',  '_route' => 'cwp_util_addCat',);
+            }
+
+            // cwp_util_forbidden
+            if ($pathinfo === '/util/forbidden') {
+                return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\BackendController::forbiddenAction',  '_route' => 'cwp_util_forbidden',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/admin')) {
@@ -44,7 +52,7 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             }
 
             // cwp_admin_index
-            if ($pathinfo === '/admin/index') {
+            if ($pathinfo === '/admin/index/index') {
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\IndexController::indexAction',  '_route' => 'cwp_admin_index',);
             }
 
@@ -53,14 +61,22 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\IndexController::loginAction',  '_route' => 'login',);
             }
 
-            // cwp_admin_userlist
-            if ($pathinfo === '/admin/userlist') {
-                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userlistAction',  '_route' => 'cwp_admin_userlist',);
-            }
+            if (0 === strpos($pathinfo, '/admin/user/user_')) {
+                // cwp_admin_userlist
+                if ($pathinfo === '/admin/user/user_list') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userlistAction',  '_route' => 'cwp_admin_userlist',);
+                }
 
-            // cwp_admin_adduser
-            if ($pathinfo === '/admin/adduser') {
-                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::addUserAction',  '_route' => 'cwp_admin_adduser',);
+                // cwp_admin_useradd
+                if ($pathinfo === '/admin/user/user_add') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userAddAction',  '_route' => 'cwp_admin_useradd',);
+                }
+
+                // cwp_admin_userdel
+                if ($pathinfo === '/admin/user/user_del') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userDelAction',  '_route' => 'cwp_admin_userdel',);
+                }
+
             }
 
             // cwp_admin_doadduser
@@ -68,38 +84,79 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::doAddUserAction',  '_route' => 'cwp_admin_doadduser',);
             }
 
+            if (0 === strpos($pathinfo, '/admin/user')) {
+                if (0 === strpos($pathinfo, '/admin/user/group_')) {
+                    // cwp_admin_groupadd
+                    if ($pathinfo === '/admin/user/group_add') {
+                        return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::groupAddAction',  '_route' => 'cwp_admin_groupadd',);
+                    }
+
+                    // cwp_admin_grouplist
+                    if ($pathinfo === '/admin/user/group_list') {
+                        return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::groupListAction',  '_route' => 'cwp_admin_grouplist',);
+                    }
+
+                    // cwp_admin_groupupdate
+                    if ($pathinfo === '/admin/user/group_update') {
+                        return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::groupUpdateAction',  '_route' => 'cwp_admin_groupupdate',);
+                    }
+
+                }
+
+                // cwp_admin_accessconfig
+                if ($pathinfo === '/admin/user/access_config') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::accessConfigAction',  '_route' => 'cwp_admin_accessconfig',);
+                }
+
+            }
+
             // cwp_admin_addcat
             if ($pathinfo === '/admin/addcat') {
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addCatAction',  '_route' => 'cwp_admin_addcat',);
             }
 
-            if (0 === strpos($pathinfo, '/admin/blog')) {
-                // cwp_admin_blogcatlist
-                if ($pathinfo === '/admin/blogcatlist') {
-                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::catListAction',  '_route' => 'cwp_admin_blogcatlist',);
-                }
+            // cwp_admin_blogcatlist
+            if ($pathinfo === '/admin/blogcatlist') {
+                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::catListAction',  '_route' => 'cwp_admin_blogcatlist',);
+            }
 
+            if (0 === strpos($pathinfo, '/admin/content/blog_')) {
                 // cwp_admin_bloglist
-                if ($pathinfo === '/admin/bloglist') {
+                if ($pathinfo === '/admin/content/blog_list') {
                     return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::blogListAction',  '_route' => 'cwp_admin_bloglist',);
                 }
 
+                // cwp_admin_addblog
+                if ($pathinfo === '/admin/content/blog_add') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addBlogAction',  '_route' => 'cwp_admin_addblog',);
+                }
+
+                // cwp_admin_blogupdate
+                if ($pathinfo === '/admin/content/blog_update') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::blogUpdateAction',  '_route' => 'cwp_admin_blogupdate',);
+                }
+
             }
 
-            // cwp_admin_addblog
-            if ($pathinfo === '/admin/addblog') {
-                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\BlogController::addBlogAction',  '_route' => 'cwp_admin_addblog',);
-            }
-
-            if (0 === strpos($pathinfo, '/admin/menu_')) {
+            if (0 === strpos($pathinfo, '/admin/user/menu_')) {
                 // cwp_admin_menulist
-                if ($pathinfo === '/admin/menu_list') {
+                if ($pathinfo === '/admin/user/menu_list') {
                     return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::menuListAction',  '_route' => 'cwp_admin_menulist',);
                 }
 
                 // cwp_admin_addmenu
-                if ($pathinfo === '/admin/menu_add') {
+                if ($pathinfo === '/admin/user/menu_add') {
                     return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::addMenuAction',  '_route' => 'cwp_admin_addmenu',);
+                }
+
+                // cwp_admin_menuupdate
+                if ($pathinfo === '/admin/user/menu_update') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::menuUpdateAction',  '_route' => 'cwp_admin_menuupdate',);
+                }
+
+                // cwp_admin_menudel
+                if ($pathinfo === '/admin/user/menu_del') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\MenuController::menuDelAction',  '_route' => 'cwp_admin_menudel',);
                 }
 
             }
@@ -107,12 +164,21 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
         }
 
         // index
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'index');
+        if ($pathinfo === '/index') {
+            return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::indexAction',  '_route' => 'index',);
+        }
+
+        if (0 === strpos($pathinfo, '/blog')) {
+            // cwp_blog_blogread
+            if (0 === strpos($pathinfo, '/blog/single') && preg_match('#^/blog/single\\-(?P<blog_id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_blog_blogread')), array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::blogReadAction',));
             }
 
-            return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::indexAction',  '_route' => 'index',);
+            // cwp_blog_bloglist
+            if ($pathinfo === '/blog/list') {
+                return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::blogListAction',  '_route' => 'cwp_blog_bloglist',);
+            }
+
         }
 
         // cwp_user_homepage

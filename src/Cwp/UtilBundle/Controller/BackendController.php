@@ -4,11 +4,29 @@ namespace Cwp\UtilBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * 后端公共控制器
  */
 class BackendController extends Controller {
+
+    public function __construct() {
+       //$this->checkAcl();
+    }
+    
+    public function forbiddenAction(){
+      return   $this->error('您没有权限访问','',0);
+    }
+
+    public function checkAcl() {
+        $request = $this->container->get('request');
+        $routeName = $request->get('_route');
+        if ($this->get('security.context')->isGranted(array($routeName))) {
+        } else {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        }
+    }
 
     /**
      * 执行操作成功的跳转页
@@ -17,7 +35,7 @@ class BackendController extends Controller {
      * @param type $isAjax
      * @return JsonResponse
      */
-    protected function success($message = '操作成功！', $route = '', $isAjax = false) {
+    public function success($message = '操作成功！', $route = '', $isAjax = false) {
         if (empty($route)) {
             $request = $this->container->get('request');
             $reffeer = $request->server->get('HTTP_REFERER');
@@ -31,7 +49,7 @@ class BackendController extends Controller {
             $output['status'] = true;
             return new JsonResponse($output);
         } else {
-            $time = $isAjax==false?3:$isAjax;
+            $time = $isAjax == false ? 3 : $isAjax;
         }
         return $this->render('CwpUtilBundle:Jump:success.html.twig', array(
                     'redirectUrl' => $url,
@@ -46,7 +64,7 @@ class BackendController extends Controller {
      * @param type $isAjax
      * @return JsonResponse
      */
-    protected function error( $message = '发生错误了！',$route='',$isAjax =false    ) {
+    public function error($message = '发生错误了！', $route = '', $isAjax = false) {
         if (empty($route)) {
             $url = 'javascript:history.back(-1);';
         } else {
@@ -58,7 +76,7 @@ class BackendController extends Controller {
             $output['status'] = false;
             return new JsonResponse($output);
         } else {
-            $time = $isAjax==false?3:$isAjax;
+            $time = $isAjax == false ? 3 : $isAjax;
         }
         return $this->render('CwpUtilBundle:Jump:error.html.twig', array(
                     'redirectUrl' => $url,

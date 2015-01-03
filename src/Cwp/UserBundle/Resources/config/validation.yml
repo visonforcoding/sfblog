@@ -1,0 +1,21 @@
+## YAML Template.
+Cwp\UserBundle\Entity\Group:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+ 
+Cwp\UserBundle\Entity\User:
+     constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+               fields : username
+               message: "用户名已存在"        
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+               fields : email
+               message: "邮箱已存在"
+     properties:
+            username:
+                  - NotBlank: 
+                     message: "用户名是必填的"            
+            

@@ -9,18 +9,36 @@ cwp_admin_index:
 login:
     path:     /login
     defaults: { _controller: CwpAdminBundle:Index:login }
-
+#用户模块
 cwp_admin_userlist:
-    path:     /userlist
+    path:     /user/user_list
     defaults: { _controller: CwpAdminBundle:User:userlist }
 
-cwp_admin_adduser:
-    path:     /adduser
-    defaults: { _controller: CwpAdminBundle:User:addUser }
+cwp_admin_useradd:
+    path:     /user/user_add
+    defaults: { _controller: CwpAdminBundle:User:userAdd }
+
+cwp_admin_userdel:
+    path:     /user/user_del
+    defaults: { _controller: CwpAdminBundle:User:userDel }    
     
 cwp_admin_doadduser:
     path:     /doadduser
     defaults: { _controller: CwpAdminBundle:User:doAddUser }
+cwp_admin_groupadd:
+    path: /user/group_add
+    defaults: { _controller: CwpAdminBundle:User:groupAdd }
+    
+cwp_admin_grouplist:
+    path: /user/group_list
+    defaults: { _controller: CwpAdminBundle:User:groupList }
+cwp_admin_groupupdate:
+    path: /user/group_update
+    defaults: { _controller: CwpAdminBundle:User:groupUpdate }    
+cwp_admin_accessconfig:
+    path: /user/access_config
+    defaults: { _controller: CwpAdminBundle:User:accessConfig }    
+#博客管理    
 cwp_admin_addcat:
     path:     /addcat
     defaults: { _controller: CwpAdminBundle:Blog:addCat }

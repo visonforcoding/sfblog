@@ -4,5 +4,7 @@ index:
 cwp_blog_blogread:
     path: /blog/single-{blog_id}
     defaults: { _controller: CwpBlogBundle:Index:blogRead }
-    
+cwp_blog_bloglist:
+    path: /blog/list
+    defaults: { _controller: CwpBlogBundle:Index:blogList }    
 

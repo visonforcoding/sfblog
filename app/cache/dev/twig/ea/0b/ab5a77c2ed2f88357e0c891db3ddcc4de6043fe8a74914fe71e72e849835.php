@@ -56,19 +56,6 @@ class __TwigTemplate_ea0bab5a77c2ed2f88357e0c891db3ddcc4de6043fe8a74914fe71e72e8
         echo "\">跳转</a>
         </div>
     </div>
-    <script type=\"text/javascript\">
-        (function () {
-            var wait = document.getElementById('time'), href = document.getElementById('href').href;
-            var interval = setInterval(function () {
-                var time = --wait.innerHTML;
-                if (time <= 0) {
-                    location.href = href;
-                    clearInterval(interval);
-                }
-                ;
-            }, 1000);
-        })();
-    </script>
 ";
     }
 

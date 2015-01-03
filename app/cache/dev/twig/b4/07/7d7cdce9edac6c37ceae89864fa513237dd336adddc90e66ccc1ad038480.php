@@ -163,16 +163,21 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
         // line 71
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpblog/js/jquery.flexslider.js"), "html", null, true);
         echo "\"></script>
-          ";
-        // line 72
-        $this->displayBlock('javascript', $context, $blocks);
+        <!--icomoon-->
+        <link rel=\"stylesheet\" href=\"";
         // line 73
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/icomoon/style.css"), "html", null, true);
+        echo "\" >
+          ";
+        // line 74
+        $this->displayBlock('javascript', $context, $blocks);
+        // line 75
         echo "        ";
         $this->displayBlock('css', $context, $blocks);
-        // line 76
+        // line 78
         echo "    </head>
     <body class=\"";
-        // line 77
+        // line 79
         echo twig_escape_filter($this->env, (isset($context["page"]) ? $context["page"] : $this->getContext($context, "page")), "html", null, true);
         echo "\">
         <!-- HEADER -->
@@ -180,24 +185,26 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
             <div class=\"wrapper cf\">
                 <div id=\"logo\">
                     <a href=\"index.html\"><img  src=\"";
-        // line 82
+        // line 84
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpblog/img/logo.png"), "html", null, true);
         echo "\" alt=\"Simpler\"></a>
                 </div>
                 <!-- nav -->
                 <ul id=\"nav\" class=\"sf-menu\">
                     <li ";
-        // line 86
+        // line 88
         if (((isset($context["page"]) ? $context["page"] : $this->getContext($context, "page")) == "home")) {
             echo "class=\"current-menu-item\"";
         }
         echo "><a href=\"/index\">首页</a></li>
                     <li ";
-        // line 87
+        // line 89
         if (((isset($context["page"]) ? $context["page"] : $this->getContext($context, "page")) == "blog")) {
             echo "class=\"current-menu-item\"";
         }
-        echo "><a  href=\"blog.html\">博客</a></li>
+        echo "><a  href=\"";
+        echo $this->env->getExtension('routing')->getPath("cwp_blog_bloglist");
+        echo "\">博客</a></li>
                     <li><a href=\"page.html\">关于</a>
                     </li>
                     <li><a href=\"portfolio.html\">WORK</a></li>
@@ -207,16 +214,16 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
                 <!-- ends nav -->
                 <!-- SLIDER -->\t\t\t\t
             ";
-        // line 96
+        // line 98
         $this->displayBlock('slider', $context, $blocks);
-        // line 97
+        // line 99
         echo "            <!-- ENDS SLIDER -->
         </div>
     </header>
 ";
-        // line 100
+        // line 102
         $this->displayBlock('main', $context, $blocks);
-        // line 101
+        // line 103
         echo "<!-- FOOTER -->
 <footer>
     <div class=\"wrapper cf\">
@@ -227,7 +234,7 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
                     <h4>RECENT POSTS</h4>
                     <div class=\"recent-post cf\">
                         <a href=\"#\" class=\"thumb\"><img src=\"";
-        // line 110
+        // line 112
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpblog/img/dummies/54x54.gif"), "html", null, true);
         echo "\" alt=\"Post\" /></a>
                         <div class=\"post-head\">
@@ -236,7 +243,7 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
                     </div>
                     <div class=\"recent-post cf\">
                         <a href=\"#\" class=\"thumb\"><img src=\"";
-        // line 116
+        // line 118
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpblog/img/dummies/54x54.gif"), "html", null, true);
         echo "\" alt=\"Post\" /></a>
                         <div class=\"post-head\">
@@ -245,7 +252,7 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
                     </div>
                     <div class=\"recent-post cf\">
                         <a href=\"#\" class=\"thumb\"><img src=\"";
-        // line 122
+        // line 124
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwpblog/img/dummies/54x54.gif"), "html", null, true);
         echo "\" alt=\"Post\" /></a>
                         <div class=\"post-head\">
@@ -315,25 +322,25 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
     {
     }
 
-    // line 72
+    // line 74
     public function block_javascript($context, array $blocks = array())
     {
     }
 
-    // line 73
+    // line 75
     public function block_css($context, array $blocks = array())
     {
-        // line 74
+        // line 76
         echo "      
         ";
     }
 
-    // line 96
+    // line 98
     public function block_slider($context, array $blocks = array())
     {
     }
 
-    // line 100
+    // line 102
     public function block_main($context, array $blocks = array())
     {
     }
@@ -350,6 +357,6 @@ class __TwigTemplate_b4077d7cdce9edac6c37ceae89864fa513237dd336adddc90e66ccc1ad0
 
     public function getDebugInfo()
     {
-        return array (  337 => 100,  332 => 96,  327 => 74,  324 => 73,  319 => 72,  314 => 7,  249 => 122,  240 => 116,  231 => 110,  220 => 101,  218 => 100,  213 => 97,  211 => 96,  197 => 87,  191 => 86,  184 => 82,  176 => 77,  173 => 76,  170 => 73,  168 => 72,  164 => 71,  160 => 70,  154 => 67,  148 => 64,  142 => 61,  132 => 54,  128 => 53,  121 => 49,  117 => 48,  113 => 47,  106 => 43,  102 => 42,  95 => 38,  90 => 35,  83 => 29,  79 => 28,  75 => 27,  69 => 24,  63 => 21,  59 => 20,  55 => 19,  51 => 18,  47 => 17,  39 => 12,  31 => 7,  24 => 2,);
+        return array (  344 => 102,  339 => 98,  334 => 76,  331 => 75,  326 => 74,  321 => 7,  256 => 124,  247 => 118,  238 => 112,  227 => 103,  225 => 102,  220 => 99,  218 => 98,  202 => 89,  196 => 88,  189 => 84,  181 => 79,  178 => 78,  175 => 75,  173 => 74,  169 => 73,  164 => 71,  160 => 70,  154 => 67,  148 => 64,  142 => 61,  132 => 54,  128 => 53,  121 => 49,  117 => 48,  113 => 47,  106 => 43,  102 => 42,  95 => 38,  90 => 35,  83 => 29,  79 => 28,  75 => 27,  69 => 24,  63 => 21,  59 => 20,  55 => 19,  51 => 18,  47 => 17,  39 => 12,  31 => 7,  24 => 2,);
     }
 }

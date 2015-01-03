@@ -21,6 +21,7 @@ use Cwp\UtilBundle\Entity\Menu;
 class MenuController extends BackendController {
 
     public function menuListAction() {
+       
 
         $em = $this->getDoctrine()->getManager();
         //获取菜单结果集
@@ -136,11 +137,11 @@ class MenuController extends BackendController {
             $em->flush();
             if (!$menu->getId()) {
                 //得不到ID 删除成功
-               $this->get('cwp_menu')->init_menu(); //更新菜单缓存   
-               return $this->success('删除成功！', 'cwp_admin_menulist', true);
+                $this->get('cwp_menu')->init_menu(); //更新菜单缓存   
+                return $this->success('删除成功！', 'cwp_admin_menulist', true);
             }
         } else {
-             return $this->error('', '', true);
+            return $this->error('', '', true);
         }
     }
 

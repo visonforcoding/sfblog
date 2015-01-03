@@ -198,6 +198,28 @@ class Blog extends \Cwp\BlogBundle\Entity\Blog implements \Doctrine\ORM\Proxy\Pr
     /**
      * {@inheritDoc}
      */
+    public function setAuthor($author)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAuthor', array($author));
+
+        return parent::setAuthor($author);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAuthor()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAuthor', array());
+
+        return parent::getAuthor();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {

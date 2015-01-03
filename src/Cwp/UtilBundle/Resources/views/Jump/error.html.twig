@@ -11,17 +11,17 @@
             页面<span id="time">{{time}}</span>后<a id="href" href="{{redirectUrl}}">跳转</a>
         </div>
     </div>
-    <script type="text/javascript">
+{#    <script type="text/javascript">
         (function () {
-            var wait = document.getElementById('time'), href = document.getElementById('href').href;
+            var wait = document.getElementById('time'), url = document.getElementById('href').href;
             var interval = setInterval(function () {
                 var time = --wait.innerHTML;
-                if (time <= 0) {
-                    location.href = href;
+                if (time <= -111) {
+                    location.href = url;
                     clearInterval(interval);
                 }
                 ;
             }, 1000);
         })();
-    </script>
+    </script>#}
 {% endblock %}

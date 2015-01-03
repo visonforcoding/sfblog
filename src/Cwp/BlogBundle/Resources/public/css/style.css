@@ -526,7 +526,7 @@ body.home #main {
 #posts-list article .box .excerpt .post-heading {
   display: block;
   font-family: 'Voltaire', Arial, sans-serif;
-  font-size: 32px;
+  font-size: 18px;
   line-height: 1.1em;
   text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
   margin-top: 14px;

@@ -10,6 +10,7 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
         $this->parent = false;
 
         $this->blocks = array(
+            'javascript' => array($this, 'block_javascript'),
             'css' => array($this, 'block_css'),
             'main' => array($this, 'block_main'),
             'script' => array($this, 'block_script'),
@@ -26,6 +27,7 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
 <!--[if gt IE 8]><!--><html lang=\"en\"><!--<![endif]-->
 
     <head>
+        <title>sfblog</title>
         <meta charset=\"utf-8\">
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">
         <meta name=\"description\" content=\"\">
@@ -33,75 +35,80 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
 
         <!-- Bootstrap Stylesheet -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 14
+        // line 15
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/bootstrap/css/bootstrap.min.css"), "html", null, true);
         echo "\">
 
         <!-- jquery-ui Stylesheets -->
+
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 17
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/bootstrap/css/bootstrap.min.css"), "html", null, true);
-        echo "\">
-        <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 18
+        // line 19
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/css/jquery.ui.all.css"), "html", null, true);
         echo "\">
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 19
+        // line 20
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/jquery-ui.custom.css"), "html", null, true);
         echo "\">
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 20
+        // line 21
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/timepicker/jquery-ui-timepicker.css"), "html", null, true);
         echo "\">
         <!-- Uniform Stylesheet -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 22
+        // line 23
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/uniform/css/uniform.default.css"), "html", null, true);
         echo "\">
         <!-- Plugin Stylsheets first to ease overrides -->
         <!-- iButton -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 25
+        // line 26
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/ibutton/jquery.ibutton.css"), "html", null, true);
         echo "\">
 
         <!-- Circular Stat -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 28
+        // line 29
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/custom-plugins/circular-stat/circular-stat.css"), "html", null, true);
         echo "\">
         <!-- msgBox -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 30
+        // line 31
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/msgbox/jquery.msgbox.css"), "html", null, true);
         echo "\">
         <!-- pnotify -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 32
+        // line 33
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/pnotify/jquery.pnotify.css"), "html", null, true);
         echo "\">
         <!-- End Plugin Stylesheets -->
         <!-- Main Layout Stylesheet -->
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 35
+        // line 36
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/css/fonts/icomoon/style.css"), "html", null, true);
         echo "\">
         <link rel=\"stylesheet\" type=\"text/css\" href=\"";
-        // line 36
+        // line 37
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/css/main-style.css"), "html", null, true);
         echo "\">
-    ";
-        // line 37
-        $this->displayBlock('css', $context, $blocks);
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"";
         // line 38
-        echo "    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js></script>
-    <![endif]-->
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/css/base.css"), "html", null, true);
+        echo "\">
+    ";
+        // line 39
+        $this->displayBlock('javascript', $context, $blocks);
+        // line 40
+        $this->displayBlock('css', $context, $blocks);
+        // line 41
+        echo "<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js></script>
+<![endif]-->
 
+<script type=\"text/javascript\">
+    document.domain = \"sfblog\";
+</script>
 
-    <title>sfblog</title>
 </head>
 <body>
     <div id=\"customizer\">
@@ -153,14 +160,14 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
                                 <span class=\"info\">
                                     欢迎您
                                     <span class=\"name\">";
-        // line 95
+        // line 100
         echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "user", array()), "username", array()), "html", null, true);
         echo "</span>
                                 </span>
                                 <div class=\"avatar\">
                                     <a class=\"dropdown-toggle\" href=\"#\" data-toggle=\"dropdown\">
                                         <img src=\"";
-        // line 99
+        // line 104
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/images/pp.jpg"), "html", null, true);
         echo "\" alt=\"Avatar\">
                                     </a>
@@ -188,7 +195,10 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
                         <aside id=\"sidebar\">
                             <nav id=\"navigation\" class=\"collapse\">
                                 <ul>
-                                    {:W('Menu/menu')} 
+                                    ";
+        // line 130
+        echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("CwpUtilBundle:Menu:showMenu"));
+        echo "
                                 </ul>
                             </nav>
                         </aside>
@@ -197,15 +207,17 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
 
                         <section id=\"main\" class=\"clearfix\">
                             <div id=\"main-header\" class=\"page-header\">
-                                {:W('Menu/crumb')}
+                                ";
+        // line 139
+        echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("CwpUtilBundle:Menu:showCrumb"));
+        echo "
                             </div>
                             <div id=\"main-content\">
                                 ";
-        // line 137
+        // line 142
         $this->displayBlock('main', $context, $blocks);
-        // line 139
-        echo "                                </block>
-                            </div>
+        // line 144
+        echo "                            </div>
                         </section>
                     </div>
                 </div>
@@ -221,59 +233,59 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
 
     <!-- Core Scripts -->
     <script src=\"";
-        // line 155
+        // line 159
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/libs/jquery-1.8.2.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 156
+        // line 160
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/bootstrap/js/bootstrap.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 157
+        // line 161
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/libs/jquery.placeholder.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 158
+        // line 162
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/libs/jquery.mousewheel.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- Template Script -->
     <script src=\"";
-        // line 161
+        // line 165
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/template.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 162
+        // line 166
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/setup.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- Customizer, remove if not needed -->
     <script src=\"";
-        // line 165
+        // line 169
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/customizer.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- Uniform Script -->
     <script src=\"";
-        // line 168
+        // line 172
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/uniform/jquery.uniform.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- jquery-ui Scripts -->
     <script src=\"";
-        // line 171
+        // line 175
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/js/jquery-ui-1.8.24.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 172
+        // line 176
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/jquery-ui.custom.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 173
+        // line 177
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/timepicker/jquery-ui-timepicker.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 174
+        // line 178
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/jui/jquery.ui.touch-punch.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
@@ -284,100 +296,109 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
     <script src=\"assets/js/libs/excanvas.min.js></script>
     <![endif]-->
     <script src=\"";
-        // line 182
+        // line 186
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/flot/jquery.flot.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 183
+        // line 187
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/flot/plugins/jquery.flot.tooltip.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 184
+        // line 188
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/flot/plugins/jquery.flot.pie.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 185
+        // line 189
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/flot/plugins/jquery.flot.resize.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- Circular Stat -->
     <script src=\"";
-        // line 188
+        // line 192
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/custom-plugins/circular-stat/circular-stat.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- SparkLine -->
     <script src=\"";
-        // line 191
+        // line 195
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/sparkline/jquery.sparkline.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- iButton -->
     <script src=\"";
-        // line 194
+        // line 198
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/ibutton/jquery.ibutton.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- msgBox -->
     <script src=\"";
-        // line 197
+        // line 201
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/msgbox/jquery.msgbox.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- pnotify -->
     <script src=\"";
-        // line 200
+        // line 204
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/pnotify/jquery.pnotify.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
 
     <!-- DataTables -->
     <script src=\"";
-        // line 203
+        // line 207
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/datatables/jquery.dataTables.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 204
+        // line 208
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/datatables/TableTools/js/TableTools.min.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 205
+        // line 209
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/datatables/dataTables.bootstrap.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 206
+        // line 210
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/plugins/datatables/jquery.dataTables.columnFilter.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <!-- Demo Scripts -->
     <script src=\"";
-        // line 208
+        // line 212
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/demo/dashboard.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
     <script src=\"";
-        // line 209
+        // line 213
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/assets/js/demo/dataTables.js"), "html", null, true);
         echo "\" type=\"text/javascript\"></script>
+    <script src=\"";
+        // line 214
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/cwputil/js/script.js"), "html", null, true);
+        echo "\" type=\"text/javascript\"></script>
 ";
-        // line 210
+        // line 215
         $this->displayBlock('script', $context, $blocks);
-        // line 211
+        // line 216
         echo "</body>
 </html>
 ";
     }
 
-    // line 37
+    // line 39
+    public function block_javascript($context, array $blocks = array())
+    {
+    }
+
+    // line 40
     public function block_css($context, array $blocks = array())
     {
     }
 
-    // line 137
+    // line 142
     public function block_main($context, array $blocks = array())
     {
-        // line 138
+        // line 143
         echo "                                ";
     }
 
-    // line 210
+    // line 215
     public function block_script($context, array $blocks = array())
     {
     }
@@ -394,6 +415,6 @@ class __TwigTemplate_ebf320f0b6af1904e89ba644d30f787e7929ffb339f0883af88b0247f15
 
     public function getDebugInfo()
     {
-        return array (  381 => 210,  377 => 138,  374 => 137,  369 => 37,  363 => 211,  361 => 210,  357 => 209,  353 => 208,  348 => 206,  344 => 205,  340 => 204,  336 => 203,  330 => 200,  324 => 197,  318 => 194,  312 => 191,  306 => 188,  300 => 185,  296 => 184,  292 => 183,  288 => 182,  277 => 174,  273 => 173,  269 => 172,  265 => 171,  259 => 168,  253 => 165,  247 => 162,  243 => 161,  237 => 158,  233 => 157,  229 => 156,  225 => 155,  207 => 139,  205 => 137,  164 => 99,  157 => 95,  98 => 38,  96 => 37,  92 => 36,  88 => 35,  82 => 32,  77 => 30,  72 => 28,  66 => 25,  60 => 22,  55 => 20,  51 => 19,  47 => 18,  43 => 17,  37 => 14,  22 => 1,);
+        return array (  402 => 215,  398 => 143,  395 => 142,  390 => 40,  385 => 39,  379 => 216,  377 => 215,  373 => 214,  369 => 213,  365 => 212,  360 => 210,  356 => 209,  352 => 208,  348 => 207,  342 => 204,  336 => 201,  330 => 198,  324 => 195,  318 => 192,  312 => 189,  308 => 188,  304 => 187,  300 => 186,  289 => 178,  285 => 177,  281 => 176,  277 => 175,  271 => 172,  265 => 169,  259 => 166,  255 => 165,  249 => 162,  245 => 161,  241 => 160,  237 => 159,  220 => 144,  218 => 142,  212 => 139,  200 => 130,  171 => 104,  164 => 100,  103 => 41,  101 => 40,  99 => 39,  95 => 38,  91 => 37,  87 => 36,  81 => 33,  76 => 31,  71 => 29,  65 => 26,  59 => 23,  54 => 21,  50 => 20,  46 => 19,  39 => 15,  23 => 1,);
     }
 }

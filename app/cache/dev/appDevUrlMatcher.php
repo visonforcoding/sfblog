@@ -127,9 +127,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_util_homepage')), array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\DefaultController::indexAction',));
         }
 
-        // cwp_util_addCat
-        if ($pathinfo === '/util/index') {
-            return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\CategoryController::addCatAction',  '_route' => 'cwp_util_addCat',);
+        if (0 === strpos($pathinfo, '/util')) {
+            // cwp_util_addCat
+            if ($pathinfo === '/util/index') {
+                return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\CategoryController::addCatAction',  '_route' => 'cwp_util_addCat',);
+            }
+
+            // cwp_util_forbidden
+            if ($pathinfo === '/util/forbidden') {
+                return array (  '_controller' => 'Cwp\\UtilBundle\\Controller\\BackendController::forbiddenAction',  '_route' => 'cwp_util_forbidden',);
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/admin')) {
@@ -148,19 +156,53 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\IndexController::loginAction',  '_route' => 'login',);
             }
 
-            // cwp_admin_userlist
-            if ($pathinfo === '/admin/userlist') {
-                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userlistAction',  '_route' => 'cwp_admin_userlist',);
-            }
+            if (0 === strpos($pathinfo, '/admin/user/user_')) {
+                // cwp_admin_userlist
+                if ($pathinfo === '/admin/user/user_list') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userlistAction',  '_route' => 'cwp_admin_userlist',);
+                }
 
-            // cwp_admin_adduser
-            if ($pathinfo === '/admin/adduser') {
-                return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::addUserAction',  '_route' => 'cwp_admin_adduser',);
+                // cwp_admin_useradd
+                if ($pathinfo === '/admin/user/user_add') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userAddAction',  '_route' => 'cwp_admin_useradd',);
+                }
+
+                // cwp_admin_userdel
+                if ($pathinfo === '/admin/user/user_del') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::userDelAction',  '_route' => 'cwp_admin_userdel',);
+                }
+
             }
 
             // cwp_admin_doadduser
             if ($pathinfo === '/admin/doadduser') {
                 return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::doAddUserAction',  '_route' => 'cwp_admin_doadduser',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/user')) {
+                if (0 === strpos($pathinfo, '/admin/user/group_')) {
+                    // cwp_admin_groupadd
+                    if ($pathinfo === '/admin/user/group_add') {
+                        return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::groupAddAction',  '_route' => 'cwp_admin_groupadd',);
+                    }
+
+                    // cwp_admin_grouplist
+                    if ($pathinfo === '/admin/user/group_list') {
+                        return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::groupListAction',  '_route' => 'cwp_admin_grouplist',);
+                    }
+
+                    // cwp_admin_groupupdate
+                    if ($pathinfo === '/admin/user/group_update') {
+                        return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::groupUpdateAction',  '_route' => 'cwp_admin_groupupdate',);
+                    }
+
+                }
+
+                // cwp_admin_accessconfig
+                if ($pathinfo === '/admin/user/access_config') {
+                    return array (  '_controller' => 'Cwp\\AdminBundle\\Controller\\UserController::accessConfigAction',  '_route' => 'cwp_admin_accessconfig',);
+                }
+
             }
 
             // cwp_admin_addcat
@@ -221,9 +263,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::indexAction',  '_route' => 'index',);
         }
 
-        // cwp_blog_blogread
-        if (0 === strpos($pathinfo, '/blog/single') && preg_match('#^/blog/single\\-(?P<blog_id>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_blog_blogread')), array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::blogReadAction',));
+        if (0 === strpos($pathinfo, '/blog')) {
+            // cwp_blog_blogread
+            if (0 === strpos($pathinfo, '/blog/single') && preg_match('#^/blog/single\\-(?P<blog_id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_blog_blogread')), array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::blogReadAction',));
+            }
+
+            // cwp_blog_bloglist
+            if ($pathinfo === '/blog/list') {
+                return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::blogListAction',  '_route' => 'cwp_blog_bloglist',);
+            }
+
         }
 
         // cwp_user_homepage

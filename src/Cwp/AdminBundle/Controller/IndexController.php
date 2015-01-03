@@ -2,21 +2,22 @@
 
 namespace Cwp\AdminBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Cwp\UtilBundle\Controller\BackendController;
 
-class IndexController extends Controller
-{
-    public function indexAction()
-    {
-        $this->get('cwp_menu')->init_menu();
+class IndexController extends BackendController {
+
+    public function indexAction() {
+        //$this->checkAcl();
+        // $this->get('cwp_menu')->init_menu();
         return $this->render('CwpAdminBundle:Index:index.html.twig', array(
-                // ...
-            ));    }
+                        // ...
+        ));
+    }
 
-    public function loginAction()
-    {
+    public function loginAction() {
         return $this->render('CwpAdminBundle:Index:login.html.twig', array(
-                // ...
-            ));    }
+                        // ...
+        ));
+    }
 
 }

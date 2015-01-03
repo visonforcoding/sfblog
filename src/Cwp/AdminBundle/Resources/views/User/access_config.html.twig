@@ -1,0 +1,74 @@
+{# empty Twig template #}
+{% extends "CwpUtilBundle:Layout:layout.html.twig" %}
+{% block javascript %}
+{% endblock %}
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12 widget">
+            <div class="widget">
+                <div class="widget-header">
+                    <span class="title">权限配置</span>
+                </div>
+                <div class="widget-content form-container">
+                    <form id="validate-1" class="form-horizontal" method="post">
+                        <div class="control-group">
+                            <label class="control-label" for="picklist-ex">{{group.name}}权限配置</label>
+                            <div class="controls" id="access">
+                                {% for node in nodes %}
+                                    <label class="checkbox">
+                                        {% if node.sort != 0%}
+                                            <input type="checkbox" {% if node.checked is defined %}checked{% endif %} class="uniform" name="node[]" value="{{node.id}}" />{{node.name}} 
+                                        {% elseif node.sort ==0 %}
+                                             ----{{node.name}}
+                                        {%endif %}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button class="btn" type="reset">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block script %}
+        <!-- Bootstrap FileInput -->
+        <!--<script src="custom-plugins/bootstrap-fileinput.min.js></script>-->
+
+        <!-- Select2 -->
+        <script src="{{asset('bundles/cwputil/plugins/select2/select2.min.js')}}" type="text/javascript"></script>
+
+        <!-- Validation -->
+        <script src="{{asset('bundles/cwputil/plugins/validate/jquery.validate.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('bundles/cwputil/plugins/validate/localization/messages_zh.js')}}" type="text/javascript"></script>
+
+        <script>
+            $(function () {
+                $("#validate-1").validate({
+                    submitHandler: function (form) {
+                        $.ajax({
+                            type: $(form).attr('method'),
+                            url: $(form).attr('action'),
+                            data: $(form).serialize(),
+                            dataType: 'json',
+                            success: function (msg) {
+                                if (typeof msg === 'object') {
+                                    if (msg.status) {
+                                        alert(msg.info);
+                                        window.location.href = msg.url;
+                                    } else {
+                                        $.msgbox(msg.info, {type: "error"});
+                                    }
+                                }
+                            }
+                        });
+                        return false; // required 
+                    }
+                });
+
+            });
+        </script>
+    {% endblock %}

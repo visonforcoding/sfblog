@@ -1,0 +1,71 @@
+{# empty Twig template #}
+{% extends "CwpBlogBundle:Layout:base.html.twig" %}
+{% set page = 'blog'%}
+{% block title %}小绾的博客{% endblock %}
+{% block javascript %}
+    <!-- ueditor -->
+    <link href="{{asset('bundles/cwputil/plugins/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css')}}" rel="stylesheet" type="text/css" />  
+    <script src="{{asset('bundles/cwputil/plugins/ueditor/third-party/SyntaxHighlighter/shCore.js')}}" ></script>
+    <script>
+        $(function () {
+            SyntaxHighlighter.all();
+        })
+    </script>
+{% endblock %}
+{% block css %}
+    <style>
+
+    </style>{% endblock %}
+    {% block main %}
+        <!-- MAIN -->
+        <div id="main">
+            <div class="wrapper cf">
+                <!-- posts list -->
+                <div id="posts-list" class="cf">        
+                    <!-- Standard -->
+                    {% for blog in blogs %}
+                    <article class="format-standard">
+                        <div class="feature-image">
+                            <a href="{{path('cwp_blog_blogread',{'blog_id':blog.id})}}">
+                                <img src="{{blog.cover}}" alt="Alt text" />
+                            </a>
+                        </div>
+                        <div class="box cf">
+                            <div class="entry-date"><div class="number">{{blog.ctime|date('d')}}</div><div class="month">{{blog.ctime|date('M')}}</div></div>
+                            <div class="excerpt">
+                                <a href="{{path('cwp_blog_blogread',{'blog_id':blog.id})}}" class="post-heading" >{{blog.title}}</a>
+                                <p>{{blog.content| striptags| slice(0,200)}}......</p>
+                                <p><a href="{{path('cwp_blog_blogread',{'blog_id':blog.id})}}" class="learnmore">查看更多</a></p>
+                            </div>
+                            <div class="meta">
+                                <span class="format">Post</span>
+                                <span class="user"><a href="#">{{blog.author}} </a></span>
+{#                                <span class="comments">16 comments</span>#}
+                                <span class="tags"><a href="{{path('cwp_blog_bloglist',{'cat_id': blog.category.id})}}">{{blog.category.name}}</a></span>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                    <!-- ENDS  Standard -->
+                    <!-- page-navigation -->
+                    <div class="page-navigation cf">
+                        <ul>
+                        {{nav|raw}}
+                        </ul>
+                    </div>
+                    <!--ENDS page-navigation -->
+                </div>
+                <!-- ENDS posts list -->
+
+                <!-- sidebar -->
+                <aside id="sidebar">
+                    {{ render(controller( 'CwpBlogBundle:Index:blogRight')) }}
+                </aside>
+                <!-- ENDS sidebar -->
+
+
+            </div><!-- ENDS WRAPPER -->
+        </div>
+        <!-- ENDS MAIN -->
+
+    {% endblock %}

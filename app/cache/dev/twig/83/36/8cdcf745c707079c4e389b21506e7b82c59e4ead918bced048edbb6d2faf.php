@@ -231,8 +231,10 @@ class __TwigTemplate_83368cdcf745c707079c4e389b21506e7b82c59e4ead918bced048edbb6
                     echo twig_escape_filter($this->env, $this->getAttribute($context["blog"], "cover", array()), "html", null, true);
                     echo "\" alt=\"alt\" /></a>
                                     <figcaption>
-                                        <a href=\"project.html\"><h3 class=\"heading\">";
+                                        <a href=\"/blog/single-";
                     // line 119
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["blog"], "id", array()), "html", null, true);
+                    echo "\"><h3 class=\"heading\">";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["blog"], "title", array()), "html", null, true);
                     echo "</h3></a>
                                             ";
@@ -277,6 +279,6 @@ class __TwigTemplate_83368cdcf745c707079c4e389b21506e7b82c59e4ead918bced048edbb6
 
     public function getDebugInfo()
     {
-        return array (  259 => 126,  253 => 125,  247 => 124,  240 => 120,  236 => 119,  229 => 117,  224 => 116,  221 => 115,  216 => 114,  212 => 113,  207 => 110,  196 => 108,  192 => 107,  180 => 97,  177 => 96,  163 => 86,  159 => 85,  155 => 84,  151 => 83,  147 => 82,  143 => 81,  139 => 80,  121 => 65,  109 => 56,  97 => 47,  85 => 38,  73 => 29,  61 => 20,  49 => 11,  41 => 5,  38 => 4,  32 => 3,  27 => 2,);
+        return array (  261 => 126,  255 => 125,  249 => 124,  242 => 120,  236 => 119,  229 => 117,  224 => 116,  221 => 115,  216 => 114,  212 => 113,  207 => 110,  196 => 108,  192 => 107,  180 => 97,  177 => 96,  163 => 86,  159 => 85,  155 => 84,  151 => 83,  147 => 82,  143 => 81,  139 => 80,  121 => 65,  109 => 56,  97 => 47,  85 => 38,  73 => 29,  61 => 20,  49 => 11,  41 => 5,  38 => 4,  32 => 3,  27 => 2,);
     }
 }

@@ -69,6 +69,8 @@
         <!-- flexslider -->
         <link rel="stylesheet" href="{{asset('bundles/cwpblog/css/flexslider.css')}}" >
         <script src="{{asset('bundles/cwpblog/js/jquery.flexslider.js')}}"></script>
+        <!--icomoon-->
+        <link rel="stylesheet" href="{{asset('bundles/cwputil/plugins/icomoon/style.css')}}" >
           {% block javascript %}{% endblock %}
         {% block css %}
       
@@ -84,7 +86,7 @@
                 <!-- nav -->
                 <ul id="nav" class="sf-menu">
                     <li {% if page == 'home'%}class="current-menu-item"{% endif %}><a href="/index">首页</a></li>
-                    <li {% if page == 'blog'%}class="current-menu-item"{% endif %}><a  href="blog.html">博客</a></li>
+                    <li {% if page == 'blog'%}class="current-menu-item"{% endif %}><a  href="{{path('cwp_blog_bloglist')}}">博客</a></li>
                     <li><a href="page.html">关于</a>
                     </li>
                     <li><a href="portfolio.html">WORK</a></li>

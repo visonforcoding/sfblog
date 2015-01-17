@@ -276,6 +276,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // cwp_blog_about
+        if ($pathinfo === '/about') {
+            return array (  '_controller' => 'Cwp\\BlogBundle\\Controller\\IndexController::aboutAction',  '_route' => 'cwp_blog_about',);
+        }
+
         // cwp_user_homepage
         if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'cwp_user_homepage')), array (  '_controller' => 'CwpUserBundle:Default:index',));

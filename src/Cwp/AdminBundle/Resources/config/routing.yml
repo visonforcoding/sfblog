@@ -54,6 +54,7 @@ cwp_admin_addblog:
 cwp_admin_blogupdate:
     path:     /content/blog_update
     defaults: { _controller: CwpAdminBundle:Blog:blogUpdate }
+
 #菜单管理    
 cwp_admin_menulist:
     path:     /user/menu_list

@@ -135,112 +135,38 @@ class __TwigTemplate_984e7841f31659cc40a99acfd4d8bad07bcd6f47c12ddc7d4046159c002
                     <!-- ENDS  Standard -->
                     <!-- comments list -->
                     <div id=\"comments-wrap\">
-                        <h4 class=\"heading\">5 Comments</h4>
-                        <ol class=\"commentlist\">
-                            <li class=\"comment even thread-even depth-1\" id=\"li-comment-1\">
-                                <div id=\"comment-1\" class=\"comment-body cf\">
-                                    <img alt='' src='' class='avatar avatar-35 photo' height='35' width='35' />      
-                                    <div class=\"comment-author vcard\">Jhon</div>
-                                    <div class=\"comment-meta commentmetadata\">
-                                        <span class=\"comment-date\">3 days ago  </span>
-                                        <span class=\"comment-reply-link-wrap\"><a class='comment-reply-link' href='replytocom=23#respond' onclick='return addComment.moveForm(\"comment-1\", \"1\", \"respond\", \"432\")'>Reply</a></span>
-                                    </div>
-                                    <div class=\"comment-inner\">
-                                        <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-                                    </div>
-                                </div>
-                                <!-- child -->
-                                <ul class='children'>
-                                    <li class=\"comment even alt depth-2\" id=\"li-comment-2-1\">
-                                        <div id=\"comment-2\" class=\"comment-body cf\">
-                                            <img alt='' src='' class='avatar avatar-35 photo' height='35' width='35' />      
-                                            <div class=\"comment-author vcard\">Jhon</div>
-                                            <div class=\"comment-meta commentmetadata\">
-                                                <span class=\"comment-date\">1 hour ago  </span>
-                                                <span class=\"comment-reply-link-wrap\"><a class='comment-reply-link' href='replytocom=24#respond' onclick='return addComment.moveForm(\"comment-2\", \"2\", \"respond\", \"432\")'>Reply</a></span>
-                                            </div>
-                                            <div class=\"comment-inner\">
-                                                <p>Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class=\"comment odd alt depth-2\" id=\"li-comment-2-2\">
-                                        <div id=\"comment-3\" class=\"comment-body cf\">
-                                            <img alt='' src='' class='avatar avatar-35 photo' height='35' width='35' />      
-                                            <div class=\"comment-author vcard\">Jhon</div>
-                                            <div class=\"comment-meta commentmetadata\">
-                                                <span class=\"comment-date\">1 hour ago  </span>
-                                                <span class=\"comment-reply-link-wrap\"><a class='comment-reply-link' href='replytocom=24#respond' onclick='return addComment.moveForm(\"comment-3\", \"2\", \"respond\", \"432\")'>Reply</a></span>
-                                            </div>
-                                            <div class=\"comment-inner\">
-                                                <p>Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <!-- ENDS child -->
-                            </li>
-                            <li class=\"comment odd thread-even depth-1\" id=\"li-comment-3\">
-                                <div id=\"comment-4\" class=\"comment-body cf\">
-                                    <img alt='' src='' class='avatar avatar-35 photo' height='35' width='35' />      
-                                    <div class=\"comment-author vcard\">Jhon</div>
-                                    <div class=\"comment-meta commentmetadata\">
-                                        <span class=\"comment-date\">3 days ago  </span>
-                                        <span class=\"comment-reply-link-wrap\"><a class='comment-reply-link' href='replytocom=23#respond' onclick='return addComment.moveForm(\"comment-4\", \"1\", \"respond\", \"432\")'>Reply</a></span>
-                                    </div>
-                                    <div class=\"comment-inner\">
-                                        <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class=\"comment even thread-even depth-1\" id=\"li-comment-4\">
-                                <div id=\"comment-5\" class=\"comment-body cf\">
-                                    <img alt='' src='' class='avatar avatar-35 photo' height='35' width='35' />      
-                                    <div class=\"comment-author vcard\">Jhon</div>
-                                    <div class=\"comment-meta commentmetadata\">
-                                        <span class=\"comment-date\">3 days ago  </span>
-                                        <span class=\"comment-reply-link-wrap\"><a class='comment-reply-link' href='replytocom=23#respond' onclick='return addComment.moveForm(\"comment-5\", \"1\", \"respond\", \"432\")'>Reply</a></span>
-                                    </div>
-                                    <div class=\"comment-inner\">
-                                        <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-                    <!-- ENDS comments list -->
-
-
-                    <!-- Respond -->\t\t\t\t
-                    <div id=\"respond\">
-                        <h3 id=\"reply-title\">Leave a Reply <small><a rel=\"nofollow\" id=\"cancel-comment-reply-link\" href=\"/themes/wp-simpler/archives/34#respond\" style=\"display:none;\">Cancel reply</a></small></h3>
-
-
-                        <form action=\"single.html\" method=\"post\" id=\"commentform\">
-                            <p class=\"comment-notes\">Your email address will not be published. Required fields are marked <span class=\"required\">*</span></p>
-                            <p class=\"comment-form-author\"><label for=\"author\">Name<span class=\"required\">*</span></label> <input id=\"author\" name=\"author\" type=\"text\" value=\"\" size=\"30\" aria-required=\"true\"></p>
-                            <p class=\"comment-form-email\"><label for=\"email\">Email<span class=\"required\">*</span></label> <input id=\"email\" name=\"email\" type=\"text\" value=\"\" size=\"30\" aria-required=\"true\"></p>
-                            <p class=\"comment-form-url\"><label for=\"url\">Website</label><input id=\"url\" name=\"url\" type=\"text\" value=\"\" size=\"30\"></p>
-                            <p class=\"comment-form-comment\"><label for=\"comment\">Comment</label><textarea id=\"comment\" name=\"comment\" cols=\"45\" rows=\"8\" aria-required=\"true\"></textarea></p>\t\t\t\t\t\t
-                            <!-- allowed tags -->
-                            <p class=\"form-allowed-tags\">You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags and attributes:  <code>&lt;a href=\"\" title=\"\"&gt; &lt;abbr title=\"\"&gt; &lt;acronym title=\"\"&gt; &lt;b&gt; &lt;blockquote cite=\"\"&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=\"\"&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=\"\"&gt; &lt;strike&gt; &lt;strong&gt; </code></p>\t\t\t\t\t\t
-                            <!-- ENDS allowed tags -->
-
-                            <p class=\"form-submit\">
-                                <input name=\"submit\" type=\"submit\" id=\"submit\" value=\"Post Comment\">
-                                <input type=\"hidden\" name=\"comment_post_ID\" value=\"34\" id=\"comment_post_ID\">
-                                <input type=\"hidden\" name=\"comment_parent\" id=\"comment_parent\" value=\"0\">
-                            </p>
-
-                        </form>
+                        <!-- 多说评论框 start -->
+                        <div class=\"ds-thread\" data-thread-key=\"";
+        // line 69
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["blog"]) ? $context["blog"] : $this->getContext($context, "blog")), "id", array()), "html", null, true);
+        echo "\" data-title=\"";
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["blog"]) ? $context["blog"] : $this->getContext($context, "blog")), "title", array()), "html", null, true);
+        echo "\" data-url=\"http://sfblog/blog/single-";
+        echo twig_escape_filter($this->env, $this->getAttribute((isset($context["blog"]) ? $context["blog"] : $this->getContext($context, "blog")), "id", array()), "html", null, true);
+        echo "\"></div>
+                        <!-- 多说评论框 end -->
+                        <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                        <script type=\"text/javascript\">
+                            var duoshuoQuery = {short_name: \"caowenpeng1990\"};
+                            (function () {
+                                var ds = document.createElement('script');
+                                ds.type = 'text/javascript';
+                                ds.async = true;
+                                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                ds.charset = 'UTF-8';
+                                (document.getElementsByTagName('head')[0]
+                                        || document.getElementsByTagName('body')[0]).appendChild(ds);
+                            })();
+                        </script>
+                        <!-- 多说公共JS代码 end -->
                     </div>
                     <!-- ENDS Respond -->
                 </div>
                 <!-- ENDS posts list -->
                 <!-- sidebar -->
                 <aside id=\"sidebar\">
-                ";
-        // line 172
+                    ";
+        // line 91
         echo $this->env->getExtension('http_kernel')->renderFragment($this->env->getExtension('http_kernel')->controller("CwpBlogBundle:Index:blogRight"));
         echo "
                 </aside>
@@ -266,6 +192,6 @@ class __TwigTemplate_984e7841f31659cc40a99acfd4d8bad07bcd6f47c12ddc7d4046159c002
 
     public function getDebugInfo()
     {
-        return array (  244 => 172,  129 => 60,  123 => 57,  119 => 56,  115 => 55,  110 => 53,  103 => 51,  100 => 50,  93 => 42,  87 => 35,  84 => 34,  63 => 16,  60 => 15,  49 => 8,  45 => 7,  42 => 6,  39 => 5,  33 => 4,  28 => 3,);
+        return array (  170 => 91,  141 => 69,  129 => 60,  123 => 57,  119 => 56,  115 => 55,  110 => 53,  103 => 51,  100 => 50,  93 => 42,  87 => 35,  84 => 34,  63 => 16,  60 => 15,  49 => 8,  45 => 7,  42 => 6,  39 => 5,  33 => 4,  28 => 3,);
     }
 }

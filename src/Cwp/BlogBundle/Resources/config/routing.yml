@@ -7,4 +7,6 @@ cwp_blog_blogread:
 cwp_blog_bloglist:
     path: /blog/list
     defaults: { _controller: CwpBlogBundle:Index:blogList }    
-
+cwp_blog_about:
+    path: /about
+    defaults: { _controller: CwpBlogBundle:Index:about }

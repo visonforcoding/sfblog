@@ -108,5 +108,10 @@ class IndexController extends Controller {
                     'nav' => $Page->pageShow()
         ));
     }
-
+    
+    public function aboutAction(){
+          return $this->render('CwpBlogBundle:Index:about.html.twig', array(
+              
+        ));
+    }
 }

@@ -241,3 +241,6 @@ fa8b01,127.0.0.1,GET,http://sfblog/admin/content/blog_add,1421161645,
 f85a91,127.0.0.1,GET,http://sfblog/index,1421161776,
 4d2d53,127.0.0.1,GET,http://sfblog/_fragment?_path=_format%3Dhtml%26_locale%3Dzh_CN%26_controller%3DCwpBlogBundle%253AIndex%253AblogRight,1421161791,d35d23
 d35d23,127.0.0.1,GET,http://sfblog/blog/single-6,1421161791,
+50bef6,127.0.0.1,GET,http://sfblog/login,1421481897,
+417bcc,127.0.0.1,GET,http://sfblog/,1421481918,
+14676a,127.0.0.1,GET,http://sfblog/index,1421481930,

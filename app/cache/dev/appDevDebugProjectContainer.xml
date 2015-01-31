@@ -1659,6 +1659,12 @@
       </call>
       <call method="addResource">
         <argument>yml</argument>
+        <argument>E:\web\sfblog\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.eu.yml</argument>
+        <argument>eu</argument>
+        <argument>FOSUserBundle</argument>
+      </call>
+      <call method="addResource">
+        <argument>yml</argument>
         <argument>E:\web\sfblog\vendor\friendsofsymfony\user-bundle/Resources/translations\FOSUserBundle.fa.yml</argument>
         <argument>fa</argument>
         <argument>FOSUserBundle</argument>
@@ -1877,6 +1883,12 @@
         <argument>yml</argument>
         <argument>E:\web\sfblog\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.es.yml</argument>
         <argument>es</argument>
+        <argument>validators</argument>
+      </call>
+      <call method="addResource">
+        <argument>yml</argument>
+        <argument>E:\web\sfblog\vendor\friendsofsymfony\user-bundle/Resources/translations\validators.eu.yml</argument>
+        <argument>eu</argument>
         <argument>validators</argument>
       </call>
       <call method="addResource">
@@ -3062,7 +3074,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>54ba22a8dc5b3</argument>
+            <argument>54bfc99b97e01</argument>
           </service>
         </argument>
       </argument>
@@ -3293,7 +3305,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>54ba22a8dc5b3</argument>
+            <argument>54bfc99b97e01</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
